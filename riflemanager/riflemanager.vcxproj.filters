@@ -5,18 +5,51 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Source Files\App Engine">
+      <UniqueIdentifier>{2a599d99-1dbc-4719-b8ca-7fa6917165f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{adc7e368-3ebe-4d2d-9056-da6d324dd181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\Rifle List">
+      <UniqueIdentifier>{615c7f9c-2fba-4e92-941c-1671bae84df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{377db489-7a3d-47f7-8854-a4c72bfd09b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AppEngine.cpp">
+      <Filter>Source Files\App Engine</Filter>
+    </ClCompile>
     <ClCompile Include="SettingsParser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="RifleListState.cpp">
+      <Filter>Source Files\States\Rifle List</Filter>
+    </ClCompile>
+    <ClCompile Include="RifleManager.cpp">
+      <Filter>Source Files\States\Rifle List</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppEngine.hpp">
+      <Filter>Source Files\App Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="AppState.hpp">
+      <Filter>Source Files\App Engine</Filter>
+    </ClInclude>
     <ClInclude Include="SettingsParser.hpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleListState.hpp">
+      <Filter>Source Files\States\Rifle List</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleManager.hpp">
+      <Filter>Source Files\States\Rifle List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

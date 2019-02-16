@@ -19,10 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AppEngine.cpp" />
+    <ClCompile Include="RifleListState.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RifleManager.cpp" />
     <ClCompile Include="SettingsParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AppEngine.hpp" />
+    <ClInclude Include="AppState.hpp" />
+    <ClInclude Include="RifleListState.hpp" />
+    <ClInclude Include="RifleManager.hpp" />
     <ClInclude Include="SettingsParser.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

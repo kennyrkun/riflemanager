@@ -39,6 +39,8 @@
 // TODO: clean up this file.
 // there are so many conversions it's really nasty
 
+// TODO: SettingsParser::removeKey("key");
+
 class SettingsParser
 {
 public:
