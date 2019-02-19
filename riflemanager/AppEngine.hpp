@@ -1,12 +1,14 @@
 #ifndef PROGRAM_ENGINE_HPP
 #define PROGRAM_ENGINE_HPP
 
+#include "RifleManager.hpp"
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 #include <thread>
 
-// APP ENGINE REVISION: 1
+// APP ENGINE REVISION: 2
 
 class AppState;
 
@@ -44,21 +46,19 @@ public:
 	void Update();
 	void Draw();
 
-	bool Running() { return running; }
+	bool isRunning() { return running; }
+
 	// THE ACTIVE STATE IS NOT SWITCHED UNTIL HandleEvents() HAS RETURNED
 	void Quit() { running = false; }
 
-	void UpdateViewSize(const sf::Vector2f& size);
-
-	const std::string currentDateTime();
+	const std::string getTimestamp();
 
 	sf::RenderWindow* window;
 	AppSettings settings;
 
-private:
-	// the stack of states
-	std::vector<AppState*> states;
+	RifleManager rm;
 
+private:
 	enum class EventType
 	{
 		PushState,
@@ -68,6 +68,8 @@ private:
 	};
 
 	std::vector<std::pair<EventType, AppState*>> queuedEvents;
+
+	std::vector<AppState*> states;
 
 	bool running;
 };

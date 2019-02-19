@@ -5,8 +5,6 @@
 #include <iostream>
 #include <ctime>
 
-// TODO: load program icon
-
 void AppEngine::Init(std::string title_, AppSettings settings_)
 {
 	std::cout << "AppEngine Init" << std::endl;
@@ -16,19 +14,19 @@ void AppEngine::Init(std::string title_, AppSettings settings_)
 	window = new sf::RenderWindow;
 	window->setVerticalSyncEnabled(settings.window.verticalSync);
 
-	/*
-	SFUI::Theme::loadFont(GBL::DIR::fonts + "Arial.ttf");
-	SFUI::Theme::loadTexture(GBL::DIR::textures + "interface_square.png");
+	SFUI::Theme::loadFont("resources/interface/tahoma.ttf");
+	SFUI::Theme::loadTexture("resources/interface/square.png");
 	SFUI::Theme::textCharacterSize = 11;
-	SFUI::Theme::click.textColor = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::click.textColorHover = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::click.textColorFocus = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::input.textColor = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::input.textColorHover = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::input.textColorFocus = SFUI::Theme::hexToRgb("#fff");
-	SFUI::Theme::windowBgColor = GBL::theme.palatte.TERTIARY;
+	SFUI::Theme::click.textColor = SFUI::Theme::hexToRgb("#191B18");
+	SFUI::Theme::click.textColorHover = SFUI::Theme::hexToRgb("#191B18");
+	SFUI::Theme::click.textColorFocus = SFUI::Theme::hexToRgb("#000000");
+	SFUI::Theme::input.textColor = SFUI::Theme::hexToRgb("#000000");
+	SFUI::Theme::input.textColorHover = SFUI::Theme::hexToRgb("#CC7A00");
+	SFUI::Theme::input.textColorFocus = SFUI::Theme::hexToRgb("#000000");
+	SFUI::Theme::windowBgColor = SFUI::Theme::hexToRgb("#dddbde");
 	SFUI::Theme::PADDING = 2.f;
-	*/
+
+	rm.loadRifleData();
 
 	running = true;
 }
@@ -125,33 +123,8 @@ void AppEngine::Draw()
 		states.back()->Draw();
 }
 
-void AppEngine::UpdateViewSize(const sf::Vector2f& size)
-{
-	std::cout << "new width: " << size.x << std::endl;
-	std::cout << "new height: " << size.y << std::endl;
-
-	sf::Vector2u newSize(size.x, size.y);
-
-	//TODO: define max size somewhere
-	if (newSize.x >= 525 && newSize.y >= 325)
-	{
-		sf::FloatRect visibleArea(0, 0, size.x, size.y);
-		window->setView(sf::View(visibleArea));
-	}
-	else
-	{
-		if (size.x <= settings.window.width)
-			newSize.x = settings.window.width;
-
-		if (size.x <= settings.window.height)
-			newSize.y = settings.window.height;
-
-		window->setSize(newSize);
-	}
-}
-
 // https://stackoverflow.com/questions/997946/how-to-get-current-time-and-date-in-c/10467633#10467633
-const std::string AppEngine::currentDateTime() 
+const std::string AppEngine::getTimestamp() 
 {
 	time_t     now = time(0);
 	struct tm  timeinfo;

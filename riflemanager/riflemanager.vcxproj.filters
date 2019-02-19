@@ -17,6 +17,12 @@
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{377db489-7a3d-47f7-8854-a4c72bfd09b6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\States\Sign Out">
+      <UniqueIdentifier>{c1bd4fc5-4317-431e-9bf2-475976671a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\Main Menu State">
+      <UniqueIdentifier>{0dda765d-c350-4299-8abf-4bd5dcb14ef1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,7 +38,13 @@
       <Filter>Source Files\States\Rifle List</Filter>
     </ClCompile>
     <ClCompile Include="RifleManager.cpp">
-      <Filter>Source Files\States\Rifle List</Filter>
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="RifleCheckoutState.cpp">
+      <Filter>Source Files\States\Sign Out</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Source Files\States\Main Menu State</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +61,13 @@
       <Filter>Source Files\States\Rifle List</Filter>
     </ClInclude>
     <ClInclude Include="RifleManager.hpp">
-      <Filter>Source Files\States\Rifle List</Filter>
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleCheckoutState.hpp">
+      <Filter>Source Files\States\Sign Out</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.hpp">
+      <Filter>Source Files\States\Main Menu State</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
