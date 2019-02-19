@@ -1,5 +1,6 @@
 #include "AppEngine.hpp"
 #include "RifleListState.hpp"
+#include "MainMenuState.hpp"
 
 #include <SFUI/SFUI.hpp>
 
@@ -16,15 +17,7 @@ void RifleListState::Init(AppEngine* app_)
 	std::cout << "RifleListState Init" << std::endl;
 	app = app_;
 
-	rm.loadRifleData();
-
-	menu = new SFUI::Menu(*app->window);
-	menu->setPosition(sf::Vector2f(10, 10));
-
 	menu = buildRifleMenu();
-
-	if (!menu)
-		std::cerr << "menu is null" << std::endl;
 
 	std::cout << "RifleListState ready" << std::endl;
 }
@@ -56,9 +49,6 @@ void RifleListState::HandleEvents()
 			app->Quit();
 		else if (event.type == sf::Event::EventType::Resized)
 		{
-			std::cout << "new width: " << event.size.width << std::endl;
-			std::cout << "new height: " << event.size.height << std::endl;
-
 			sf::Vector2u newSize(event.size.width, event.size.height);
 
 			sf::FloatRect visibleArea(0.0f, 0.0f, event.size.width, event.size.height);
@@ -67,6 +57,12 @@ void RifleListState::HandleEvents()
 
 		int id = menu->onEvent(event);
 
+		if (id == 100)
+		{
+			app->ChangeState(new MainMenuState);
+		}
+
+		/*
 		if (id != -1)
 			if (id < rm.riflesOut.size())
 			{
@@ -86,6 +82,7 @@ void RifleListState::HandleEvents()
 				if (!menu)
 					std::cerr << "new menu is null" << std::endl;
 			}
+		*/
 	}
 }
 
@@ -95,29 +92,9 @@ void RifleListState::Update()
 
 void RifleListState::Draw()
 {
-	std::cout << "drawing" << std::endl;
-
-	try
-	{
-		app->window->clear(SFUI::Theme::windowBgColor);
-
-		if (menu == nullptr)
-			std::cout << "fuck" << std::endl;
-		
-		menu->isFocused();
-
-		// this is where it's crashing.
-		// it could be a problem with SFUI.
-		app->window->draw(*menu);
-
-		std::cout << "failed before me" << std::endl;
-
-		app->window->display();
-	}
-	catch (std::exception& e)
-	{
-		std::cerr << "[EXCEPTION]: " << e.what() << std::endl;
-	}
+	app->window->clear(SFUI::Theme::windowBgColor);
+	app->window->draw(*menu);
+	app->window->display();
 }
 
 SFUI::Menu* RifleListState::buildRifleMenu()
@@ -127,8 +104,8 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 
 	menu->addLabel("Rifles Out:");
 
-	for (size_t i = 0; i < rm.riflesOut.size(); i++)
-		menu->addButton(std::to_string(rm.riflesOut[i].first) + " / " + rm.riflesOut[i].second, i);
+	for (size_t i = 0; i < app->rm.rifles.size(); i++)
+		menu->addButton(std::to_string(app->rm.rifles[i]), i);
 
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();
@@ -140,9 +117,7 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 	menu->add(name, -2);
 	menu->add(rifleID, -3);
 	menu->addButton("Sign Out");
-
-	if (!menu)
-		std::cerr << "creating menu failed, it's still null" << std::endl;
+	menu->addButton("Back", 100);
 
 	return menu;
 }
