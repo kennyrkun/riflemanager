@@ -38,7 +38,6 @@ void AppEngine::Cleanup()
 	for (size_t i = 0; i < states.size(); i++)
 		PopState();
 
-	window->close();
 	delete window;
 
 	std::cout << "AppEngine cleaned up." << std::endl;

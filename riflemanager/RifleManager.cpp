@@ -17,7 +17,6 @@ void RifleManager::loadRifleData()
 		std::ifstream readIndex("./resources/rifleinventory/rifles.dat", std::ios::in);
 		std::string line; // each line of index.dat;
 
-		int loopi(0);
 		while (std::getline(readIndex, line))
 		{
 			try
@@ -101,7 +100,6 @@ bool RifleManager::verifyRifleSerial(std::string serial)
 	catch (std::exception& e)
 	{
 		std::cerr << "failed to convert serial to integer" << std::endl;
-
 		return false;
 	}
 
@@ -112,5 +110,20 @@ bool RifleManager::verifyRifleSerial(std::string serial)
 	}
 
 	return true;
+}
+
+bool RifleManager::isRifleOut(serial serial)
+{
+	if (fs::exists("./resources/rifleinventory/" + std::to_string(serial)))
+	{
+		SettingsParser sp("./resources/rifleinventory/" + std::to_string(serial) + "/info.dat");
+
+		std::string status;
+		sp.get("status", status);
+
+		return status == "out" ? true : false;
+	}
+	
+	return false;
 }
 

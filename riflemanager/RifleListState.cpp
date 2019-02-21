@@ -57,32 +57,16 @@ void RifleListState::HandleEvents()
 
 		int id = menu->onEvent(event);
 
-		if (id == 100)
-		{
+		if (id == -2)
 			app->ChangeState(new MainMenuState);
-		}
 
-		/*
 		if (id != -1)
-			if (id < rm.riflesOut.size())
-			{
-//				std::cout << rm.riflesOut[id].second + "'s Rifle is out! (" << rm.riflesOut[id].first << ")" << std::endl;
+		{
+			std::cout << "want to return rifle " << id << std::endl;
 
-				try
-				{
-					rm.riflesOut.erase(std::remove(rm.riflesOut.begin(), rm.riflesOut.end(), rm.riflesOut[id]), rm.riflesOut.end());
-				}
-				catch (std::exception e)
-				{
-					std::cerr << "failed to remove rifle from list" << std::endl;
-				}
-
-				menu = buildRifleMenu();
-
-				if (!menu)
-					std::cerr << "new menu is null" << std::endl;
-			}
-		*/
+			app->rm.returnRifle(id);
+			menu = buildRifleMenu();
+		}
 	}
 }
 
@@ -105,19 +89,13 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 	menu->addLabel("Rifles Out:");
 
 	for (size_t i = 0; i < app->rm.rifles.size(); i++)
-		menu->addButton(std::to_string(app->rm.rifles[i]), i);
+		if (app->rm.isRifleOut(app->rm.rifles[i]))
+			menu->addButton(std::to_string(app->rm.rifles[i]), app->rm.rifles[i]);
 
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
 
-	SFUI::InputBox* name = new SFUI::InputBox;
-	SFUI::InputBox* rifleID = new SFUI::InputBox(47);
-
-	menu->add(name, -2);
-	menu->add(rifleID, -3);
-	menu->addButton("Sign Out");
-	menu->addButton("Back", 100);
+	menu->addButton("Back", -2);
 
 	return menu;
 }

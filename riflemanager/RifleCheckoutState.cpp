@@ -149,7 +149,6 @@ SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
 
 	menu->addButton("Back", CALLBACK::BACK);
 
