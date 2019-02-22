@@ -13,7 +13,7 @@ int main()
 {
 	AppEngine app;
 	AppSettings settings;
-	app.Init("KunLauncher", settings);
+	app.Init("RifleManager", settings);
 
 	app.window = new sf::RenderWindow(sf::VideoMode(250, 300), "Rifle Manager");
 	app.window->setVerticalSyncEnabled(true);
