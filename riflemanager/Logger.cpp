@@ -14,7 +14,7 @@ const std::string getDateTimestamp()
 	return buf;
 }
 
-std::string write_dir = "./" + getDateTimestamp() + ".log";
+std::string write_dir = "./rfman_log/" + getDateTimestamp() + ".log";
 
 const std::string getTimestamp()
 {
