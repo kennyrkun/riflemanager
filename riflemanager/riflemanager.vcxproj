@@ -22,6 +22,7 @@
     <ClCompile Include="AppEngine.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="RifleCheckoutState.cpp" />
     <ClCompile Include="RifleListState.cpp" />
     <ClCompile Include="main.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="AppState.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />
+    <ClInclude Include="Rifle.hpp" />
     <ClInclude Include="RifleCheckoutState.hpp" />
     <ClInclude Include="RifleListState.hpp" />
     <ClInclude Include="RifleManager.hpp" />

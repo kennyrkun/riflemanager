@@ -4,7 +4,6 @@
 #include "Logger.hpp"
 
 #include <SFUI/Theme.hpp>
-#include <iostream>
 #include <ctime>
 
 void AppEngine::Initialise(const std::string title_, AppSettings settings_)

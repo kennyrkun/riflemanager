@@ -8,8 +8,6 @@
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 
-#include <iostream>
-#include <fstream>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;

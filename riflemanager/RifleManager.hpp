@@ -1,38 +1,29 @@
 #ifndef RIFLE_MANAGER_HPP
 #define RIFLE_MANAGER_HPP
 
+#include "Rifle.hpp"
+
 #include <vector>
 #include <string>
-
-typedef signed int serial;
-
-struct RifleInfo
-{
-	std::string type;
-	std::string status;
-	std::string notes;
-	std::string user;
-	serial serial;
-};
 
 class RifleManager
 {
 public:
 	void loadRifleData();
 
-	void checkoutRifle(serial serial, std::string user);
+	void checkoutRifle(rifle::serial serial, std::string user);
 
 	// TODO: return rifle by user
 //	void returnRifle(std::string user);
-	void returnRifle(serial serial);
+	bool returnRifle(rifle::serial serial);
 
-	RifleInfo getRifleInfo(serial serial);
+	rifle::Info getRifleInfo(rifle::serial serial);
 
 	bool verifyRifleSerial(std::string serial);
 
-	bool isRifleOut(serial serial);
+	bool isRifleOut(rifle::serial serial);
 
-	std::vector<serial> rifles;
+	std::vector<rifle::serial> rifles;
 
 	// rifle id
 	// rifle type,

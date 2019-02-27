@@ -18,7 +18,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 ////////////////////////////////////////////////////////////
 
-// Revision 5
+// Revision 6
 
 #ifndef SETTINGSPARSER_INCLUDE
 #define SETTINGSPARSER_INCLUDE
@@ -313,7 +313,7 @@ inline bool SettingsParser::get(const std::string& key, T &value) const
 	}
 	else
 	{
-		std::cerr << "failed to find key \"" << key << "\"" << std::endl;
+		logger::ERROR("failed to find key \"" + key + "\"");
 
 		return false;
 	}
@@ -356,7 +356,7 @@ inline bool SettingsParser::get(const std::string& key, std::vector<T> &value) c
 	}
 	else
 	{
-		std::cerr << "failed to find key \"" << key << "\"" << std::endl;
+		logger::ERROR("failed to find key \"" + key + "\"");
 
 		return false;
 	}
@@ -387,7 +387,7 @@ inline std::vector<T> SettingsParser::get(const std::string& key) const
 	}
 	else
 	{
-		std::cerr << "failed to find key \"" << key << "\"" << std::endl;
+		logger::ERROR("failed to find key \"" + key + "\"");
 	}
 }
 

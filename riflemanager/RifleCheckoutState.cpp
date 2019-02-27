@@ -7,8 +7,6 @@
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 
-#include <iostream>
-#include <fstream>
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
@@ -98,7 +96,7 @@ void RifleCheckoutState::HandleEvents()
 				{
 					logger::INFO("ready to sign out rifle.");
 
-					serial serial = std::stoi(rifleID->getText().toAnsiString());
+					rifle::serial serial = std::stoi(rifleID->getText().toAnsiString());
 
 					app->rm.checkoutRifle(serial, name->getText());
 

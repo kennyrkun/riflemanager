@@ -7,9 +7,6 @@
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 
-#include <iostream>
-#include <fstream>
-
 int main()
 {
 	AppEngine app;
