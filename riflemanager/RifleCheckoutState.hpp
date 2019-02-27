@@ -7,6 +7,7 @@
 #include <SFUI/InputBox.hpp>
 
 #include "RifleManager.hpp"
+#include "SerialInputBox.hpp"
 
 // FIXME: resizing too small causes infinite (or so it seems) hang
 
@@ -29,7 +30,7 @@ private:
 	SFUI::Menu* menu;
 
 	SFUI::InputBox* name;
-	SFUI::InputBox* rifleID;
+	SerialInputBox* rifleID;
 
 	SFUI::Menu* buildRifleMenu();
 };

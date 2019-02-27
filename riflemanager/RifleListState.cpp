@@ -107,7 +107,7 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 
 	for (size_t i = 0; i < app->rm.rifles.size(); i++)
 		if (app->rm.isRifleOut(app->rm.rifles[i]))
-			menu->addButton(std::to_string(app->rm.rifles[i]), app->rm.rifles[i]);
+			menu->addButton(std::to_string(app->rm.rifles[i]) + "/" + rifle::loadInfo(app->rm.rifles[i]).user, app->rm.rifles[i]);
 
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();

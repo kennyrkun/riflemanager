@@ -6,13 +6,13 @@
 #include <SFUI/Theme.hpp>
 #include <ctime>
 
-void AppEngine::Initialise(const std::string title_, AppSettings settings_)
+void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 {
 	logger::INFO("AppEngine Init");
 
 	settings = settings_;
 
-	window = new sf::RenderWindow(sf::VideoMode(settings.window.width, settings.window.height), title_);
+	window = new sf::RenderWindow(sf::VideoMode(settings.window.width, settings.window.height), title);
 	window->setVerticalSyncEnabled(settings.window.verticalSync);
 
 	SFUI::Theme::loadFont("resources/interface/tahoma.ttf");

@@ -140,7 +140,7 @@ SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 	name = new SFUI::InputBox(170);
 
 	delete rifleID;
-	rifleID = new SFUI::InputBox(47);
+	rifleID = new SerialInputBox(47);
 
 	form->addRow("Name:", name, CALLBACK::NAME);
 	form->addRow("S/N:", rifleID, CALLBACK::RIFLE_ID);

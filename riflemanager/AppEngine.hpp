@@ -8,7 +8,7 @@
 #include <string>
 #include <thread>
 
-// APP ENGINE REVISION: 4
+// APP ENGINE REVISION: 5
 
 class AppState;
 
@@ -30,7 +30,7 @@ struct AppSettings
 class AppEngine
 {
 public:
-	void Initialise(const std::string title, AppSettings settings_);
+	void Initialise(const std::string& title, AppSettings settings_);
 	void Cleanup();
 
 	// THE ACTIVE STATE IS NOT SWITCHED UNTIL THE CALLER FUNCTION HAS RETURNED

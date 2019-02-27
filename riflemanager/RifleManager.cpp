@@ -61,6 +61,8 @@ void RifleManager::loadRifleData()
 // in this function, we assume both the name and serial are valid.
 void RifleManager::checkoutRifle(rifle::serial serial, std::string user)
 {
+	logger::INFO("checking out rifle " + std::to_string(serial) + " for " + user);
+
 	if (fs::exists("./resources/rifleinventory/" + std::to_string(serial)))
 	{
 		SettingsParser sp("./resources/rifleinventory/" + std::to_string(serial) + "/info.dat");
