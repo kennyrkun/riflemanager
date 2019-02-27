@@ -8,7 +8,7 @@
 #include <string>
 #include <thread>
 
-// APP ENGINE REVISION: 2
+// APP ENGINE REVISION: 3
 
 class AppState;
 
@@ -22,15 +22,15 @@ struct AppSettings
 	struct Window
 	{
 		bool verticalSync = true;
-		int width = 525;
-		int	height = 375;
+		int width = 250;
+		int	height = 300;
 	} window;
 };
 
 class AppEngine
 {
 public:
-	void Init(std::string title, AppSettings settings_);
+	void Initialise(const std::string title, AppSettings settings_);
 	void Cleanup();
 
 	// THE ACTIVE STATE IS NOT SWITCHED UNTIL THE CALLER FUNCTION HAS RETURNED

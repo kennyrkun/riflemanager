@@ -4,6 +4,7 @@
 #include "AppState.hpp"
 
 #include <SFUI/Layouts/Menu.hpp>
+#include <SFUI/CheckBox.hpp>
 
 #include "RifleManager.hpp"
 
@@ -28,6 +29,8 @@ private:
 	SFUI::Menu* menu;
 
 	SFUI::Menu* buildRifleMenu();
+
+	SFUI::CheckBox* showAllRiflesBox;
 };
 
 #endif // !RIFLE_LIST_STATE_HPP

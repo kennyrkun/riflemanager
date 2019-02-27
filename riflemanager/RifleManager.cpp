@@ -1,6 +1,7 @@
 #include "RifleManager.hpp"
 
 #include "SettingsParser.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -10,7 +11,7 @@ namespace fs = std::experimental::filesystem;
 
 void RifleManager::loadRifleData()
 {
-	std::cout << "loading rifle data" << std::endl;
+	logger::INFO("loading rifle data");
 
 	{
 		// load rifle data
@@ -21,14 +22,14 @@ void RifleManager::loadRifleData()
 		{
 			try
 			{
-				std::cout << "adding " << line << std::endl;
+				logger::INFO("adding " + line);
 
 				serial rifleSerial = std::stoi(line);
 				rifles.push_back(rifleSerial);
 			}
 			catch (std::exception& e)
 			{
-				std::cerr << "[ERROR]: failed to convert rifle serial to integer (malformed data file?)" << std::endl;
+				logger::ERROR("failed to convert rifle serial to integer (malformed data file?)");
 			}
 		}
 	}
@@ -67,6 +68,10 @@ void RifleManager::checkoutRifle(serial serial, std::string user)
 		sp.set("user", user);
 		sp.set("status", "out");
 	}
+	else
+	{
+		logger::INFO("rifle " + std::to_string(serial) + " does not exist!");
+	}
 }
 
 void RifleManager::returnRifle(serial serial)
@@ -77,6 +82,10 @@ void RifleManager::returnRifle(serial serial)
 
 		sp.set("user", "NO+USER");
 		sp.set("status", "in");
+	}
+	else
+	{
+		logger::INFO("rifle " + std::to_string(serial) + " does not exist!");
 	}
 }
 
@@ -99,13 +108,13 @@ bool RifleManager::verifyRifleSerial(std::string serial)
 	}
 	catch (std::exception& e)
 	{
-		std::cerr << "failed to convert serial to integer" << std::endl;
+		logger::INFO("failed to convert serial to integer");
 		return false;
 	}
 
 	if (serial.length() != 6)
 	{
-		std::cerr << "serial not six characters" << std::endl;
+		logger::INFO("serial not six characters");
 		return false;
 	}
 
@@ -122,6 +131,10 @@ bool RifleManager::isRifleOut(serial serial)
 		sp.get("status", status);
 
 		return status == "out" ? true : false;
+	}
+	else
+	{
+		logger::INFO("rifle " + std::to_string(serial) + " does not exist!");
 	}
 	
 	return false;

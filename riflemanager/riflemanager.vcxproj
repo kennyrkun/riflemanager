@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppEngine.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="RifleCheckoutState.cpp" />
     <ClCompile Include="RifleListState.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="AppEngine.hpp" />
     <ClInclude Include="AppState.hpp" />
+    <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />
     <ClInclude Include="RifleCheckoutState.hpp" />
     <ClInclude Include="RifleListState.hpp" />

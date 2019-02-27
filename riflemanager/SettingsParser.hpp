@@ -18,7 +18,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 ////////////////////////////////////////////////////////////
 
-// Revision 4
+// Revision 5
 
 #ifndef SETTINGSPARSER_INCLUDE
 #define SETTINGSPARSER_INCLUDE

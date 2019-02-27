@@ -5,6 +5,7 @@
 #include <SFUI/Theme.hpp>
 
 #include "SettingsParser.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -13,28 +14,23 @@ int main()
 {
 	AppEngine app;
 	AppSettings settings;
-	app.Init("RifleManager", settings);
+	app.Initialise("Rifle Manager 1.1", settings);
 
-	app.window = new sf::RenderWindow(sf::VideoMode(250, 300), "Rifle Manager");
+	// FIXME: this should actually be set in app.Initialise
 	app.window->setVerticalSyncEnabled(true);
 
 	app.PushState(new MainMenuState);
 
 	while (app.isRunning())
 	{
-		try
-		{
-			app.HandleEvents();
-			app.Update();
-			app.Draw();
-		}
-		catch (std::exception& e)
-		{
-			std::cerr << "[EXCEPTION/MAIN]: " << e.what() << std::endl;
-		}
+		app.HandleEvents();
+		app.Update();
+		app.Draw();
 	}
 
 	app.Cleanup();
+
+	logger::INFO("Shutdown looks good. Have a beautiful time ;)");
 
 	return 0;
 }

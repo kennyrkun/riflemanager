@@ -1,17 +1,19 @@
 #include "AppEngine.hpp"
 #include "AppState.hpp"
 
+#include "Logger.hpp"
+
 #include <SFUI/Theme.hpp>
 #include <iostream>
 #include <ctime>
 
-void AppEngine::Init(std::string title_, AppSettings settings_)
+void AppEngine::Initialise(const std::string title_, AppSettings settings_)
 {
-	std::cout << "AppEngine Init" << std::endl;
+	logger::INFO("AppEngine Init");
 
 	settings = settings_;
 
-	window = new sf::RenderWindow;
+	window = new sf::RenderWindow(sf::VideoMode(settings.window.width, settings.window.height), title_);
 	window->setVerticalSyncEnabled(settings.window.verticalSync);
 
 	SFUI::Theme::loadFont("resources/interface/tahoma.ttf");
@@ -29,18 +31,20 @@ void AppEngine::Init(std::string title_, AppSettings settings_)
 	rm.loadRifleData();
 
 	running = true;
+
+	logger::INFO("AppEngine ready.");
 }
 
 void AppEngine::Cleanup()
 {
-	std::cout << "Cleaning up AppEngine." << std::endl;
+	logger::INFO("Cleaning up AppEngine.");
 	
 	for (size_t i = 0; i < states.size(); i++)
 		PopState();
 
 	delete window;
 
-	std::cout << "AppEngine cleaned up." << std::endl;
+	logger::INFO("AppEngine cleaned up.");
 }
 
 void AppEngine::ChangeState(AppState* state)

@@ -20,6 +20,8 @@
 
 #include "SettingsParser.hpp"
 
+#include "Logger.hpp"
+
 #include <locale> // std::isspace
 #include <fstream>
 #include <iostream>
@@ -53,7 +55,7 @@ bool SettingsParser::read()
 	std::ifstream in(m_filename);
 	if (!in.is_open())
 	{
-		std::cerr << "unable to open settings file \"" << m_filename << "\" for reading!" << std::endl;
+		logger::ERROR("[SETTINGS PARSER]: unable to open settings file \"" + m_filename + "\" for reading!");
 		return false;
 	}
 
@@ -123,7 +125,7 @@ bool SettingsParser::write() const
 	std::ofstream out(m_filename);
 	if (!out.is_open())
 	{
-		std::cerr << "unable to open settings file \"" << m_filename << "\" for writing!" << std::endl;
+		logger::ERROR("[SETTINGSPARSER]: unable to open settings file \"" + m_filename + "\" for writing!");
 		return false;
 	}
 	else
@@ -139,7 +141,8 @@ bool SettingsParser::write() const
 			}
 			else
 			{
-				std::cout << "second: " << it->second << std::endl;
+				std::string s = it->second;
+				logger::INFO("second: " + s);
 			}
 
 			out << std::endl;
@@ -185,8 +188,15 @@ std::pair<std::string, std::string> SettingsParser::parseLine(const std::string 
 
 void SettingsParser::print() const
 {
-	std::cout << std::endl << "Size: " << m_data.size() << std::endl;
+	logger::LINE_BREAK();
+
+	logger::INFO("Size: " + std::to_string(m_data.size()));
 
 	for (auto& element : m_data)
-		std::cout << element.first << " = " << element.second << std::endl;
+	{
+		std::string first = element.first;
+		std::string second = element.second;
+
+		logger::INFO(first + " = " + second);
+	}
 }

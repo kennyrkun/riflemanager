@@ -6,6 +6,7 @@
 #include <SFUI/SFUI.hpp>
 
 #include "SettingsParser.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -15,7 +16,7 @@ namespace fs = std::experimental::filesystem;
 
 void MainMenuState::Init(AppEngine* app_)
 {
-	std::cout << "RifleListState Init" << std::endl;
+	logger::INFO("RifleListState Init");
 	app = app_;
 
 	int padding = 10;
@@ -32,24 +33,24 @@ void MainMenuState::Init(AppEngine* app_)
 	checkoutButton.setFillColor(sf::Color::Red);
 	checkoutButton.setPosition(sf::Vector2f(padding, sizeY + (padding * 2)));
 
-	std::cout << "RifleListState ready" << std::endl;
+	logger::INFO("RifleListState ready");
 }
 
 void MainMenuState::Cleanup()
 {
-	std::cout << "Cleaning up RifleListState" << std::endl;
+	logger::INFO("Cleaning up RifleListState");
 
-	std::cout << "RifleListState Cleanup" << std::endl;
+	logger::INFO("RifleListState Cleanup");
 }
 
 void MainMenuState::Pause()
 {
-	std::cout << "RifleListState paused" << std::endl;
+	logger::INFO("RifleListState paused");
 }
 
 void MainMenuState::Resume()
 {
-	std::cout << "RifleListState resumed" << std::endl;
+	logger::INFO("RifleListState resumed");
 }
 
 void MainMenuState::HandleEvents()

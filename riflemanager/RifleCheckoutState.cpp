@@ -5,6 +5,7 @@
 #include <SFUI/SFUI.hpp>
 
 #include "SettingsParser.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -22,30 +23,30 @@ enum CALLBACK
 
 void RifleCheckoutState::Init(AppEngine* app_)
 {
-	std::cout << "RifleCheckoutState Init" << std::endl;
+	logger::INFO("RifleCheckoutState Init");
 	app = app_;
 
 	delete menu;
 	menu = buildRifleMenu();
 
-	std::cout << "RifleCheckoutState ready" << std::endl;
+	logger::INFO("RifleCheckoutState ready");
 }
 
 void RifleCheckoutState::Cleanup()
 {
-	std::cout << "Cleaning up RifleCheckoutState" << std::endl;
+	logger::INFO("Cleaning up RifleCheckoutState");
 
-	std::cout << "RifleCheckoutState Cleanup" << std::endl;
+	logger::INFO("RifleCheckoutState Cleanup");
 }
 
 void RifleCheckoutState::Pause()
 {
-	std::cout << "RifleCheckoutState paused" << std::endl;
+	logger::INFO("RifleCheckoutState paused");
 }
 
 void RifleCheckoutState::Resume()
 {
-	std::cout << "RifleCheckoutState resumed" << std::endl;
+	logger::INFO("RifleCheckoutState resumed");
 }
 
 void RifleCheckoutState::HandleEvents()
@@ -70,32 +71,32 @@ void RifleCheckoutState::HandleEvents()
 		{
 			if (id == CALLBACK::SIGN_OUT)
 			{
-				std::cout << "sign out" << std::endl;
-				std::cout << "name: " << name->getText().toAnsiString() << std::endl;
-				std::cout << "S/N: " << rifleID->getText().toAnsiString() << std::endl;
+				logger::INFO("sign out");
+				logger::INFO("name: " + name->getText().toAnsiString());
+				logger::INFO("S/N: " + rifleID->getText().toAnsiString());
 
 				bool readyToSignOut(true);
 
 				if (name->isEmpty())
 				{
-					std::cerr << "name must be specified" << std::endl;
+					logger::ERROR("name must be specified");
 					readyToSignOut = false;
 				}
 
 				if (rifleID->isEmpty())
 				{
-					std::cerr << "rifle id must be specified" << std::endl;
+					logger::ERROR("rifle id must be specified");
 					readyToSignOut = false;
 				}
 				else if (!app->rm.verifyRifleSerial(rifleID->getText()))
 				{
-					std::cerr << "rifle id is not valid" << std::endl;
+					logger::ERROR("rifle id is not valid");
 					readyToSignOut = false;
 				}
 
 				if (readyToSignOut)
 				{
-					std::cout << "ready to sign out rifle." << std::endl;
+					logger::INFO("ready to sign out rifle.");
 
 					serial serial = std::stoi(rifleID->getText().toAnsiString());
 
@@ -106,7 +107,7 @@ void RifleCheckoutState::HandleEvents()
 				}
 				else
 				{
-					std::cout << "not ready to sign out rifle." << std::endl;
+					logger::INFO("not ready to sign out rifle.");
 				}
 			}
 			else if (id == CALLBACK::BACK)

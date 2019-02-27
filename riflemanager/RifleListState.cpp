@@ -5,6 +5,7 @@
 #include <SFUI/SFUI.hpp>
 
 #include "SettingsParser.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -12,31 +13,37 @@
 
 namespace fs = std::experimental::filesystem;
 
+enum CALLBACKS
+{
+	BACK,
+	SHOW_ALL_RIFLES
+};
+
 void RifleListState::Init(AppEngine* app_)
 {
-	std::cout << "RifleListState Init" << std::endl;
+	logger::INFO("RifleListState Init");
 	app = app_;
 
 	menu = buildRifleMenu();
 
-	std::cout << "RifleListState ready" << std::endl;
+	logger::INFO("RifleListState ready");
 }
 
 void RifleListState::Cleanup()
 {
-	std::cout << "Cleaning up RifleListState" << std::endl;
+	logger::INFO("Cleaning up RifleListState");
 
-	std::cout << "RifleListState Cleanup" << std::endl;
+	logger::INFO("RifleListState Cleanup");
 }
 
 void RifleListState::Pause()
 {
-	std::cout << "RifleListState paused" << std::endl;
+	logger::INFO("RifleListState paused");
 }
 
 void RifleListState::Resume()
 {
-	std::cout << "RifleListState resumed" << std::endl;
+	logger::INFO("RifleListState resumed");
 }
 
 void RifleListState::HandleEvents()
@@ -57,15 +64,27 @@ void RifleListState::HandleEvents()
 
 		int id = menu->onEvent(event);
 
-		if (id == -2)
-			app->ChangeState(new MainMenuState);
-
-		if (id != -1)
+		switch (id)
 		{
-			std::cout << "want to return rifle " << id << std::endl;
+			case CALLBACKS::BACK:
+			{
+				app->ChangeState(new MainMenuState);
+				break;
+			}
+			case CALLBACKS::SHOW_ALL_RIFLES:
+			{
+				break;
+			}
+			default:
+			{
+				if (id != -1)
+				{
+					logger::INFO("want to return rifle " + std::to_string(id));
 
-			app->rm.returnRifle(id);
-			menu = buildRifleMenu();
+					app->rm.returnRifle(id);
+					menu = buildRifleMenu();
+				}
+			}
 		}
 	}
 }
@@ -95,7 +114,9 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();
 
-	menu->addButton("Back", -2);
+//	menu->add(showAllRiflesBox, CALLBACKS::SHOW_ALL_RIFLES);
+
+	menu->addButton("Back", CALLBACKS::BACK);
 
 	return menu;
 }
