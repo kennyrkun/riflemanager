@@ -91,6 +91,11 @@ void RifleCheckoutState::HandleEvents()
 					logger::ERROR("rifle id is not valid");
 					readyToSignOut = false;
 				}
+				else if (app->rm.isRifleOut(std::stoi(rifleID->getText().toAnsiString())))
+				{
+					logger::ERROR("rifle is already checked out.");
+					readyToSignOut = false;
+				}
 
 				if (readyToSignOut)
 				{
