@@ -30,6 +30,8 @@ private:
 
 	SFUI::Menu* buildRifleMenu();
 
+	bool showAllRifles = false;
+
 	SFUI::CheckBox* showAllRiflesBox;
 };
 

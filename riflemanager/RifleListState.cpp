@@ -6,6 +6,7 @@
 
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
+#include "RifleFileSystem.hpp"
 
 #include <experimental/filesystem>
 
@@ -71,6 +72,8 @@ void RifleListState::HandleEvents()
 			}
 			case CALLBACKS::SHOW_ALL_RIFLES:
 			{
+				showAllRifles = !showAllRifles;
+				menu = buildRifleMenu();
 				break;
 			}
 			default:
@@ -103,16 +106,24 @@ SFUI::Menu* RifleListState::buildRifleMenu()
 	SFUI::Menu* menu = new SFUI::Menu(*app->window);
 	menu->setPosition(sf::Vector2f(10, 10));
 
-	menu->addLabel("Rifles Out:");
+	menu->addLabel("Rifles List:");
 
-	for (size_t i = 0; i < app->rm.rifles.size(); i++)
-		if (app->rm.isRifleOut(app->rm.rifles[i]))
+	std::vector<rifle::serial> rifles = rfs::getRifleList();
+
+	for (size_t i = 0; i < rifles.size(); i++)
+	{
+		if (app->rm.isRifleOut(rifles[i]))
 			menu->addButton(std::to_string(app->rm.rifles[i]) + "/" + rifle::loadInfo(app->rm.rifles[i]).user, app->rm.rifles[i]);
+		else if (showAllRifles)
+			menu->addLabel(std::to_string(rifles[i]));
+	}
 
 	menu->addHorizontalBoxLayout();
 	menu->addHorizontalBoxLayout();
 
-//	menu->add(showAllRiflesBox, CALLBACKS::SHOW_ALL_RIFLES);
+	SFUI::FormLayout* form = menu->addFormLayout();
+	showAllRiflesBox = new SFUI::CheckBox(showAllRifles);
+	form->addRow("Show All Rifles", showAllRiflesBox, CALLBACKS::SHOW_ALL_RIFLES);
 
 	menu->addButton("Back", CALLBACKS::BACK);
 
