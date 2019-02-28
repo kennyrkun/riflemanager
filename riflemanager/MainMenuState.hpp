@@ -7,8 +7,6 @@
 
 #include "RifleManager.hpp"
 
-// FIXME: resizing too small causes infinite (or so it seems) hang
-
 class MainMenuState : public AppState
 {
 public:
@@ -25,10 +23,9 @@ public:
 private:
 	AppEngine* app;
 
-	sf::RectangleShape listButton;
-	sf::RectangleShape checkoutButton;
+	SFUI::Menu* menu;
 
-	bool mouseIsOver(const sf::Shape &object);
+	SFUI::Menu* buildMainMenu();
 };
 
 #endif // !MAIN_MENU_STATE_HPP

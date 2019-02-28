@@ -26,6 +26,15 @@
     <Filter Include="Source Files\Utility\App Engine">
       <UniqueIdentifier>{2a599d99-1dbc-4719-b8ca-7fa6917165f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\States\AdministrationState">
+      <UniqueIdentifier>{32bf5ecc-30e2-4fff-ad17-2fb26ceae19b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\AboutState">
+      <UniqueIdentifier>{260c9795-e4e1-42de-ad29-8fdd74cdd7a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\SettingsState">
+      <UniqueIdentifier>{7f338cfc-7909-4185-9aa2-5ca7ac03bbb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

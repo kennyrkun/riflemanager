@@ -11,7 +11,7 @@ int main()
 {
 	AppEngine app;
 	AppSettings settings;
-	app.Initialise("Rifle Manager 1.1", settings);
+	app.Initialise("Rifle Manager 1.2", settings);
 
 	// FIXME: this should actually be set in app.Initialise
 	app.window->setVerticalSyncEnabled(true);

@@ -7,7 +7,7 @@
 class SerialInputBox : public SFUI::Widget
 {
 public:
-	SerialInputBox(float width = 200.f);
+	explicit SerialInputBox(float width = 200.f);
 
 	void setText(const sf::String& string);
 

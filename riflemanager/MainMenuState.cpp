@@ -12,43 +12,41 @@
 
 namespace fs = std::experimental::filesystem;
 
+enum CALLBACK
+{
+	RIFLE_LIST,
+	CHECKOUT_RIFLE,
+	SETTINGS,
+	ADMIN,
+	ABOUT,
+	EXIT
+};
+
 void MainMenuState::Init(AppEngine* app_)
 {
-	logger::INFO("RifleListState Init");
+	logger::INFO("MainMenuState Init");
 	app = app_;
 
-	int padding = 10;
+	menu = buildMainMenu();
 
-	int sizeX = app->window->getSize().x - (padding * 2);
-	// FIXME: this doesn't work completely correctly, but it's close enough for release.
-	int sizeY = (app->window->getSize().y / 2) - (padding * 2);
-
-	listButton.setSize(sf::Vector2f(sizeX, sizeY));
-	listButton.setFillColor(sf::Color::Blue);
-	listButton.setPosition(sf::Vector2f(padding, padding));
-
-	checkoutButton.setSize(sf::Vector2f(sizeX, sizeY));
-	checkoutButton.setFillColor(sf::Color::Red);
-	checkoutButton.setPosition(sf::Vector2f(padding, sizeY + (padding * 2)));
-
-	logger::INFO("RifleListState ready");
+	logger::INFO("MainMenuState ready");
 }
 
 void MainMenuState::Cleanup()
 {
-	logger::INFO("Cleaning up RifleListState");
+	logger::INFO("Cleaning up MainMenuState");
 
-	logger::INFO("RifleListState Cleanup");
+	logger::INFO("MainMenuState Cleanup");
 }
 
 void MainMenuState::Pause()
 {
-	logger::INFO("RifleListState paused");
+	logger::INFO("MainMenuState paused");
 }
 
 void MainMenuState::Resume()
 {
-	logger::INFO("RifleListState resumed");
+	logger::INFO("MainMenuState resumed");
 }
 
 void MainMenuState::HandleEvents()
@@ -66,23 +64,25 @@ void MainMenuState::HandleEvents()
 			sf::FloatRect visibleArea(0.0f, 0.0f, event.size.width, event.size.height);
 			app->window->setView(sf::View(visibleArea));
 
-			int padding = 10;
-
-			int sizeX = app->window->getSize().x - (padding * 2);
-			int sizeY = (app->window->getSize().y / 2) - (padding * 2);
-
-			listButton.setSize(sf::Vector2f(sizeX, sizeY));
-			listButton.setPosition(sf::Vector2f(padding, padding));
-
-			checkoutButton.setSize(sf::Vector2f(sizeX, sizeY));
-			checkoutButton.setPosition(sf::Vector2f(padding, sizeY + (padding * 2)));
 		}
-		else if (event.type == sf::Event::EventType::MouseButtonReleased)
+
+		int id = menu->onEvent(event);
+
+		switch (id)
 		{
-			if (mouseIsOver(listButton))
-				app->ChangeState(new RifleListState);
-			else if (mouseIsOver(checkoutButton))
-				app->ChangeState(new RifleCheckoutState);
+		case CALLBACK::CHECKOUT_RIFLE:
+			app->ChangeState(new RifleCheckoutState);
+			break;
+		case CALLBACK::RIFLE_LIST:
+			app->ChangeState(new RifleListState);
+			break;
+		case CALLBACK::SETTINGS:
+		case CALLBACK::ADMIN:
+		case CALLBACK::ABOUT:
+			break;
+		case CALLBACK::EXIT:
+			app->Quit();
+			break;
 		}
 	}
 }
@@ -95,16 +95,34 @@ void MainMenuState::Draw()
 {
 	app->window->clear(SFUI::Theme::windowBgColor);
 	
-	app->window->draw(listButton);
-	app->window->draw(checkoutButton);
+	app->window->draw(*menu);
 
 	app->window->display();
 }
 
-bool MainMenuState::mouseIsOver(const sf::Shape &object)
+SFUI::Menu* MainMenuState::buildMainMenu()
 {
-	if (object.getGlobalBounds().contains(app->window->mapPixelToCoords(sf::Mouse::getPosition(*app->window))))
-		return true;
-	else
-		return false;
+	SFUI::Menu* menu = new SFUI::Menu(*app->window);
+	menu->setPosition(sf::Vector2f(10, 10));
+
+	menu->addButton("Rifle List", CALLBACK::RIFLE_LIST);
+	menu->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
+
+	menu->addHorizontalBoxLayout();
+	menu->addHorizontalBoxLayout();
+	menu->addHorizontalBoxLayout();
+
+#ifdef _DEBUG
+	menu->addButton("Settings", CALLBACK::SETTINGS);
+	menu->addButton("Admin", CALLBACK::ADMIN);
+	menu->addButton("About", CALLBACK::ABOUT);
+
+	menu->addHorizontalBoxLayout();
+	menu->addHorizontalBoxLayout();
+	menu->addHorizontalBoxLayout();
+#endif
+
+	menu->addButton("Exit", CALLBACK::EXIT);
+
+	return menu;
 }
