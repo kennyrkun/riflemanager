@@ -2,6 +2,7 @@
 
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
+#include "RifleFileSystem.hpp"
 
 #include <fstream>
 #include <filesystem>
@@ -10,58 +11,15 @@ namespace fs = std::experimental::filesystem;
 
 void RifleManager::loadRifleData()
 {
-	logger::INFO("loading rifle data");
+	logger::INFO("[RIFLE MANAGER]: loading rifle data");
 
-	{
-		// load rifle data
-		std::ifstream readIndex("./resources/rifleinventory/rifles.dat", std::ios::in);
-		std::string line; // each line of index.dat;
-
-		while (std::getline(readIndex, line))
-		{
-			try
-			{
-				logger::INFO("adding " + line);
-
-				rifle::serial rifleSerial = std::stoi(line);
-				rifles.push_back(rifleSerial);
-			}
-			catch (std::exception& e)
-			{
-				logger::ERROR("failed to convert rifle serial to integer (malformed data file?)");
-				logger::ERROR(e.what());
-			}
-		}
-	}
-	/*
-	{
-		// load rifles out
-		SettingsParser sp("./resources/rifles_out.dat");
-
-		std::ifstream readIndex("./resources/rifles_out.dat", std::ios::in);
-		std::string line; // each line of index.dat;
-		int loopi(0);
-		while (std::getline(readIndex, line))
-		{
-			// TODO: this might need should be - 2
-			std::string id = line.substr(0, line.find_first_of('=') - 1);
-			std::string name = line.substr(line.find_first_of('=') + 2, line.length());
-
-			std::pair<int, std::string> rifle;
-
-			rifle.first = std::stoi(id);
-			rifle.second = name;
-
-			riflesOut.push_back(rifle);
-		}
-	}
-	*/
+	rifles = rfs::getRifleList();
 }
 
 // in this function, we assume both the name and serial are valid.
 void RifleManager::checkoutRifle(rifle::serial serial, std::string user)
 {
-	logger::INFO("checking out rifle " + std::to_string(serial) + " for " + user);
+	logger::INFO("[RIFLE MANAGER]: checking out rifle " + std::to_string(serial) + " for " + user);
 
 	if (fs::exists("./resources/rifleinventory/" + std::to_string(serial)))
 	{
@@ -72,7 +30,7 @@ void RifleManager::checkoutRifle(rifle::serial serial, std::string user)
 	}
 	else
 	{
-		logger::ERROR("rifle " + std::to_string(serial) + " does not exist!");
+		logger::ERROR("[RIFLE MANAGER]: rifle " + std::to_string(serial) + " does not exist!");
 	}
 }
 
@@ -89,7 +47,7 @@ bool RifleManager::returnRifle(rifle::serial serial)
 	}
 	else
 	{
-		logger::ERROR("rifle " + std::to_string(serial) + " does not exist!");
+		logger::ERROR("[RIFLE MANAGER]: rifle " + std::to_string(serial) + " does not exist!");
 
 		return false;
 	}
@@ -112,7 +70,7 @@ bool RifleManager::verifyRifleSerial(std::string serial)
 	}
 	catch (std::exception& e)
 	{
-		logger::ERROR("failed to convert serial to integer");
+		logger::ERROR("[RIFLE MANAGER]: failed to convert serial to integer");
 		logger::ERROR(e.what());
 
 		return false;
@@ -120,7 +78,7 @@ bool RifleManager::verifyRifleSerial(std::string serial)
 
 	if (serial.length() != 6)
 	{
-		logger::ERROR("serial not six characters");
+		logger::ERROR("[RIFLE MANAGER]: serial not six characters");
 		return false;
 	}
 
@@ -140,7 +98,7 @@ bool RifleManager::isRifleOut(rifle::serial serial)
 	}
 	else
 	{
-		logger::ERROR("rifle " + std::to_string(serial) + " does not exist!");
+		logger::ERROR("[RIFLE MANAGER]: rifle " + std::to_string(serial) + " does not exist!");
 	}
 	
 	return false;

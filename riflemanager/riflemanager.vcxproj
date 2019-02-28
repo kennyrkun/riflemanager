@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AppEngine.cpp" />
+    <ClCompile Include="RifleFileSystem.cpp" />
     <ClCompile Include="SerialInputBox.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="AppEngine.hpp" />
     <ClInclude Include="AppState.hpp" />
+    <ClInclude Include="RifleFileSystem.hpp" />
     <ClInclude Include="SerialInputBox.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />

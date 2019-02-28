@@ -6,6 +6,8 @@
 #include <vector>
 #include <string>
 
+// TODO: rifle manager does not need to be a class.
+
 class RifleManager
 {
 public:

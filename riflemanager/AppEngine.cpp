@@ -8,7 +8,7 @@
 
 void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 {
-	logger::INFO("AppEngine Init");
+	logger::DEBUG("[APP ENGINE]: Initialising...");
 
 	settings = settings_;
 
@@ -31,19 +31,19 @@ void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 
 	running = true;
 
-	logger::INFO("AppEngine ready.");
+	logger::DEBUG("[APP ENGINE]: Ready.");
 }
 
 void AppEngine::Cleanup()
 {
-	logger::INFO("Cleaning up AppEngine.");
+	logger::DEBUG("[APP ENGINE]: Cleaning up...");
 	
 	for (size_t i = 0; i < states.size(); i++)
 		PopState();
 
 	delete window;
 
-	logger::INFO("AppEngine cleaned up.");
+	logger::DEBUG("[APP ENGINE]: cleaned up.");
 }
 
 void AppEngine::ChangeState(AppState* state)

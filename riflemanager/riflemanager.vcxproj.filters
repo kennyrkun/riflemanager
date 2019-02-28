@@ -35,6 +35,9 @@
     <Filter Include="Source Files\States\SettingsState">
       <UniqueIdentifier>{7f338cfc-7909-4185-9aa2-5ca7ac03bbb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utility\Rifle Manager\Rifle File System">
+      <UniqueIdentifier>{c1e3ec51-9ed7-4f3f-a6c9-ff9a2f55fae0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,6 +70,9 @@
     <ClCompile Include="SerialInputBox.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="RifleFileSystem.cpp">
+      <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppEngine.hpp">
@@ -98,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="SerialInputBox.hpp">
       <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleFileSystem.hpp">
+      <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
