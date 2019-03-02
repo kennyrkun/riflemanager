@@ -423,4 +423,4 @@ inline void SettingsParser::set(const std::string &key, const std::vector<T> val
 	m_isChanged = true;
 }
 
-#endif // SETTINGSPARSER_INCLUDE
+#endif // !SETTINGSPARSER_INCLUDE
