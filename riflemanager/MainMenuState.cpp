@@ -80,6 +80,12 @@ void MainMenuState::HandleEvents()
 		case CALLBACK::ADMIN:
 		case CALLBACK::ABOUT:
 			break;
+		case CALLBACK::CHECK_IN_ALL:
+			app->rm.returnAllRifles();
+			break;
+		case CALLBACK::CHECK_OUT_ALL:
+			app->rm.checkoutAllRifles();
+			break;
 		case CALLBACK::EXIT:
 			app->Quit();
 			break;
@@ -102,27 +108,36 @@ void MainMenuState::Draw()
 
 SFUI::Menu* MainMenuState::buildMainMenu()
 {
-	SFUI::Menu* menu = new SFUI::Menu(*app->window);
-	menu->setPosition(sf::Vector2f(10, 10));
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(10, 10));
 
-	menu->addButton("Rifle List", CALLBACK::RIFLE_LIST);
-	menu->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
+	newMenu->addButton("Rifle List", CALLBACK::RIFLE_LIST);
+	newMenu->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
 
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
 
 #ifdef _DEBUG
-	menu->addButton("Settings", CALLBACK::SETTINGS);
-	menu->addButton("Admin", CALLBACK::ADMIN);
-	menu->addButton("About", CALLBACK::ABOUT);
+	newMenu->addButton("Settings", CALLBACK::SETTINGS);
+	newMenu->addButton("Admin", CALLBACK::ADMIN);
+	newMenu->addButton("About", CALLBACK::ABOUT);
 
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+
+	newMenu->addButton("Check In All", CALLBACK::CHECK_IN_ALL);
+	newMenu->addButton("Check Out All", CALLBACK::CHECK_OUT_ALL);
+
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
 #endif
 
-	menu->addButton("Exit", CALLBACK::EXIT);
+#ifndef PLATFORM_TOUCH
+	newMenu->addButton("Exit", CALLBACK::EXIT);
+#endif
 
-	return menu;
+	return newMenu;
 }

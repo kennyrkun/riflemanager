@@ -27,6 +27,9 @@ public:
 
 	std::vector<rifle::serial> rifles;
 
+	void checkoutAllRifles();
+	void returnAllRifles();
+
 	// rifle id
 	// rifle type,
 	// rifle status

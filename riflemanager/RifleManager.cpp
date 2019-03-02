@@ -103,3 +103,35 @@ bool RifleManager::isRifleOut(rifle::serial serial)
 	
 	return false;
 }
+
+void RifleManager::checkoutAllRifles()
+{
+	logger::INFO("checking out all rifles");
+
+	std::vector<rifle::serial> rifles = rfs::getRifleList();
+
+	for (size_t i = 0; i < rifles.size(); i++)
+	{
+		if (fs::exists("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat"))
+		{
+			SettingsParser parser("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat");
+			parser.set("status", "out");
+		}
+	}
+}
+
+void RifleManager::returnAllRifles()
+{
+	logger::INFO("returning all rifles");
+
+	std::vector<rifle::serial> rifles = rfs::getRifleList();
+
+	for (size_t i = 0; i < rifles.size(); i++)
+	{
+		if (fs::exists("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat"))
+		{
+			SettingsParser parser("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat");
+			parser.set("status", "in");
+		}
+	}
+}
