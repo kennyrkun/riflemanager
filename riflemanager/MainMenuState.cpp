@@ -19,6 +19,8 @@ enum CALLBACK
 	SETTINGS,
 	ADMIN,
 	ABOUT,
+	CHECK_IN_ALL,
+	CHECK_OUT_ALL,
 	EXIT
 };
 
@@ -35,6 +37,8 @@ void MainMenuState::Init(AppEngine* app_)
 void MainMenuState::Cleanup()
 {
 	logger::INFO("Cleaning up MainMenuState");
+
+	delete menu;
 
 	logger::INFO("MainMenuState Cleanup");
 }
@@ -71,10 +75,12 @@ void MainMenuState::HandleEvents()
 		switch (id)
 		{
 		case CALLBACK::CHECKOUT_RIFLE:
-			app->ChangeState(new RifleCheckoutState);
+			app->PushState(new RifleCheckoutState);
+			return;
 			break;
 		case CALLBACK::RIFLE_LIST:
-			app->ChangeState(new RifleListState);
+			app->PushState(new RifleListState);
+			return;
 			break;
 		case CALLBACK::SETTINGS:
 		case CALLBACK::ADMIN:
@@ -109,30 +115,26 @@ void MainMenuState::Draw()
 SFUI::Menu* MainMenuState::buildMainMenu()
 {
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
-	newMenu->setPosition(sf::Vector2f(10, 10));
+	newMenu->setPosition(sf::Vector2f(8, 10));
 
-	newMenu->addButton("Rifle List", CALLBACK::RIFLE_LIST);
-	newMenu->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
+	SFUI::HorizontalBoxLayout* topPanelContainer= newMenu->addHorizontalBoxLayout();
 
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
+	SFUI::VerticalBoxLayout* leftPanel = topPanelContainer->addVerticalBoxLayout();
+	leftPanel->addButton("Rifle List", CALLBACK::RIFLE_LIST);
+	leftPanel->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
 
 #ifdef _DEBUG
-	newMenu->addButton("Settings", CALLBACK::SETTINGS);
-	newMenu->addButton("Admin", CALLBACK::ADMIN);
-	newMenu->addButton("About", CALLBACK::ABOUT);
+	SFUI::VerticalBoxLayout* rightPanel = topPanelContainer->addVerticalBoxLayout();
+	rightPanel->addButton("Settings", CALLBACK::SETTINGS);
+	rightPanel->addButton("Admin", CALLBACK::ADMIN);
+	rightPanel->addButton("About", CALLBACK::ABOUT);
 
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
+	rightPanel->addHorizontalBoxLayout();
+	rightPanel->addHorizontalBoxLayout();
+	rightPanel->addHorizontalBoxLayout();
 
-	newMenu->addButton("Check In All", CALLBACK::CHECK_IN_ALL);
-	newMenu->addButton("Check Out All", CALLBACK::CHECK_OUT_ALL);
-
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
-	newMenu->addHorizontalBoxLayout();
+	rightPanel->addButton("Check In All", CALLBACK::CHECK_IN_ALL);
+	rightPanel->addButton("Check Out All", CALLBACK::CHECK_OUT_ALL);
 #endif
 
 #ifndef PLATFORM_TOUCH

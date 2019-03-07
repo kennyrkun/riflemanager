@@ -19,6 +19,8 @@ const std::string getDateStamp()
 	return buf;
 }
 
+// TODO: replace the - with :
+// this uses dashes currently because windows does not allow colons in filenames
 const std::string getTimestamp()
 {
 	time_t     now = time(0);

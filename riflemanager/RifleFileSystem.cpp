@@ -1,6 +1,7 @@
 #include "RifleFileSystem.hpp"
 
 #include "Logger.hpp"
+#include <SFML/System/Clock.hpp>
 
 #include <filesystem>
 
@@ -60,6 +61,8 @@ size_t rfs::getRifleCount()
 
 std::vector<rifle::serial> rfs::getRifleList()
 {
+	sf::Clock timer;
+
 	std::vector<rifle::serial> rifles;
 
 	for (const auto& entry : fs::directory_iterator(RIFLE_PATH))
@@ -83,6 +86,8 @@ std::vector<rifle::serial> rfs::getRifleList()
 			}
 		}
 	}
+
+	logger::DEBUG("Took " + std::to_string(timer.getElapsedTime().asSeconds()) + "s to get rifle list.");
 
 	return rifles;
 }

@@ -24,7 +24,6 @@ void RifleCheckoutState::Init(AppEngine* app_)
 	logger::INFO("RifleCheckoutState Init");
 	app = app_;
 
-	delete menu;
 	menu = buildRifleMenu();
 
 	logger::INFO("RifleCheckoutState ready");
@@ -33,6 +32,8 @@ void RifleCheckoutState::Init(AppEngine* app_)
 void RifleCheckoutState::Cleanup()
 {
 	logger::INFO("Cleaning up RifleCheckoutState");
+
+	delete menu;
 
 	logger::INFO("RifleCheckoutState Cleanup");
 }
@@ -110,12 +111,14 @@ void RifleCheckoutState::HandleEvents()
 				}
 				else
 				{
+					// TODO: we could put a 1 pixel outline box over the invalid areas
 					logger::INFO("not ready to sign out rifle.");
 				}
 			}
 			else if (id == CALLBACK::BACK)
 			{
-				app->ChangeState(new MainMenuState);
+				app->PopState();
+				return;
 			}
 		}
 	}
@@ -134,12 +137,12 @@ void RifleCheckoutState::Draw()
 
 SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 {
-	SFUI::Menu* menu = new SFUI::Menu(*app->window);
-	menu->setPosition(sf::Vector2f(10, 10));
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(10, 10));
 
-	menu->addLabel("Checkout Rifle");
+	newMenu->addLabel("Checkout Rifle");
 
-	SFUI::FormLayout* form = menu->addFormLayout();
+	SFUI::FormLayout* form = newMenu->addFormLayout();
 
 	delete name;
 	name = new SFUI::InputBox(170);
@@ -151,10 +154,10 @@ SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 	form->addRow("S/N:", rifleID, CALLBACK::RIFLE_ID);
 	form->addButton("Sign Out", CALLBACK::SIGN_OUT);
 
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
 
-	menu->addButton("Back", CALLBACK::BACK);
+	newMenu->addButton("Back", CALLBACK::BACK);
 
-	return menu;
+	return newMenu;
 }

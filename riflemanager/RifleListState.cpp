@@ -32,6 +32,8 @@ void RifleListState::Cleanup()
 {
 	logger::INFO("Cleaning up RifleListState");
 
+	delete menu;
+
 	logger::INFO("RifleListState Cleanup");
 }
 
@@ -67,7 +69,8 @@ void RifleListState::HandleEvents()
 		{
 			case CALLBACKS::BACK:
 			{
-				app->ChangeState(new MainMenuState);
+				app->PopState();
+				return;
 				break;
 			}
 			case CALLBACKS::SHOW_ALL_RIFLES:
@@ -101,31 +104,43 @@ void RifleListState::Draw()
 	app->window->display();
 }
 
+// TODO: improve performance here
+// this probable because of the way we store rifle stuff
+// we need to make it faster
 SFUI::Menu* RifleListState::buildRifleMenu()
 {
-	SFUI::Menu* menu = new SFUI::Menu(*app->window);
-	menu->setPosition(sf::Vector2f(10, 10));
+	sf::Clock creationTimer;
 
-	menu->addLabel("Rifles List:");
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(10, 10));
+
+	newMenu->addLabel("Rifle List:");
 
 	std::vector<rifle::serial> rifles = rfs::getRifleList();
 
 	for (size_t i = 0; i < rifles.size(); i++)
 	{
 		if (app->rm.isRifleOut(rifles[i]))
-			menu->addButton(std::to_string(app->rm.rifles[i]) + "/" + rifle::loadInfo(app->rm.rifles[i]).user, app->rm.rifles[i]);
+			newMenu->addButton(std::to_string(app->rm.rifles[i]) + "/" + rifle::loadInfo(app->rm.rifles[i]).user, app->rm.rifles[i]);
 		else if (showAllRifles)
-			menu->addLabel(std::to_string(rifles[i]));
+			newMenu->addLabel(std::to_string(rifles[i]));
 	}
 
-	menu->addHorizontalBoxLayout();
-	menu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
+	newMenu->addHorizontalBoxLayout();
 
-	SFUI::FormLayout* form = menu->addFormLayout();
+	SFUI::FormLayout* form = newMenu->addFormLayout();
 	showAllRiflesBox = new SFUI::CheckBox(showAllRifles);
 	form->addRow("Show All Rifles", showAllRiflesBox, CALLBACKS::SHOW_ALL_RIFLES);
 
-	menu->addButton("Back", CALLBACKS::BACK);
+	newMenu->addButton("Back", CALLBACKS::BACK);
 
-	return menu;
+	sf::Time timeSpentCreatingMenu = creationTimer.getElapsedTime();
+
+	logger::INFO("Menu Creation took " + std::to_string(timeSpentCreatingMenu.asSeconds()) + "s");
+
+	if (timeSpentCreatingMenu.asSeconds() > 1.0f)
+		logger::WARNING("Menu Creation took longer than 1000ms!");
+
+	return newMenu;
 }

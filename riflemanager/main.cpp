@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
 	// HACK: keeps program from using 30% cpu while idle
 	app.window->setFramerateLimit(60);
 #endif
+
 	app.PushState(new MainMenuState);
 
 	while (app.isRunning())
