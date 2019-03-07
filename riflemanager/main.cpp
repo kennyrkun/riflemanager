@@ -7,10 +7,12 @@
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 
-int main()
+int main(int argc, char* argv[])
 {
 	AppEngine app;
 	AppSettings settings;
+	settings.commandline = { argc, argv };
+
 	app.Initialise("Rifle Manager 1.2", settings);
 
 	// FIXME: this should actually be set in app.Initialise
