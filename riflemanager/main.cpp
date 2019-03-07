@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	AppSettings settings;
 	settings.commandline = { argc, argv };
 
-	app.Initialise("Rifle Manager 1.2", settings);
+	app.Initialise("Rifle Manager 1.3", settings);
 
 	// FIXME: this should actually be set in app.Initialise
 	app.window->setVerticalSyncEnabled(true);
