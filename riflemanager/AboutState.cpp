@@ -64,7 +64,10 @@ void AboutState::HandleEvents()
 		app->PopState();
 		break;
 	case CALLBACK::SOURCE:
+		system("start https://github.com/kennyrkun/riflemanager");
+		break;
 	case CALLBACK::ISSUES:
+		system("start https://github.com/kennyrkun/riflemanager/issues");
 		break;
 	default:
 		break;
