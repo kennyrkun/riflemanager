@@ -30,8 +30,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RifleManager.cpp" />
     <ClCompile Include="SettingsParser.cpp" />
+    <ClCompile Include="AboutState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutState.hpp" />
     <ClInclude Include="AppEngine.hpp" />
     <ClInclude Include="AppState.hpp" />
     <ClInclude Include="RifleFileSystem.hpp" />

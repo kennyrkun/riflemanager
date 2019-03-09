@@ -2,6 +2,7 @@
 #include "MainMenuState.hpp"
 #include "RifleListState.hpp"
 #include "RifleCheckoutState.hpp"
+#include "AboutState.hpp"
 
 #include <SFUI/SFUI.hpp>
 
@@ -84,7 +85,9 @@ void MainMenuState::HandleEvents()
 			break;
 		case CALLBACK::SETTINGS:
 		case CALLBACK::ADMIN:
+			break;
 		case CALLBACK::ABOUT:
+			app->PushState(new AboutState);
 			break;
 		case CALLBACK::CHECK_IN_ALL:
 			app->rm.returnAllRifles();

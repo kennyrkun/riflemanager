@@ -15,6 +15,8 @@ class AppState;
 // TODO: don't set these if they've been overriden via command line arugements
 struct AppSettings
 {
+	float version = 1.4f;
+
 	bool SFUIDebug = false;
 	bool useAnimations = false;
 	int animationScale = 1;

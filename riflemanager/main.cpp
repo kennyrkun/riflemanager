@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	AppSettings settings;
 	settings.commandline = { argc, argv };
 
-	app.Initialise("Rifle Manager 1.3", settings);
+	app.Initialise("Rifle Manager " + std::to_string(settings.version), settings);
 
 	// FIXME: this should actually be set in app.Initialise
 	app.window->setVerticalSyncEnabled(true);

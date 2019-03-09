@@ -73,6 +73,9 @@
     <ClCompile Include="RifleFileSystem.cpp">
       <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
     </ClCompile>
+    <ClCompile Include="AboutState.cpp">
+      <Filter>Source Files\States\AboutState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppEngine.hpp">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="RifleFileSystem.hpp">
       <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutState.hpp">
+      <Filter>Source Files\States\AboutState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
