@@ -3,6 +3,7 @@
 #include "RifleListState.hpp"
 #include "RifleCheckoutState.hpp"
 #include "AboutState.hpp"
+#include "AdminState.hpp"
 
 #include <SFUI/SFUI.hpp>
 
@@ -84,7 +85,9 @@ void MainMenuState::HandleEvents()
 			return;
 			break;
 		case CALLBACK::SETTINGS:
+			break;
 		case CALLBACK::ADMIN:
+			app->PushState(new AdminState);
 			break;
 		case CALLBACK::ABOUT:
 			app->PushState(new AboutState);

@@ -19,32 +19,38 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutState.cpp" />
+    <ClCompile Include="AdminState.cpp" />
     <ClCompile Include="AppEngine.cpp" />
-    <ClCompile Include="RifleFileSystem.cpp" />
-    <ClCompile Include="SerialInputBox.cpp" />
+    <ClCompile Include="DebugState.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Rifle.cpp" />
     <ClCompile Include="RifleCheckoutState.cpp" />
+    <ClCompile Include="RifleFileSystem.cpp" />
     <ClCompile Include="RifleListState.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="RifleManager.cpp" />
+    <ClCompile Include="SerialInputBox.cpp" />
     <ClCompile Include="SettingsParser.cpp" />
-    <ClCompile Include="AboutState.cpp" />
+    <ClCompile Include="SettingsState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AboutState.hpp" />
+    <ClInclude Include="AdminState.hpp" />
     <ClInclude Include="AppEngine.hpp" />
     <ClInclude Include="AppState.hpp" />
-    <ClInclude Include="RifleFileSystem.hpp" />
-    <ClInclude Include="SerialInputBox.hpp" />
+    <ClInclude Include="DebugState.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="MainMenuState.hpp" />
     <ClInclude Include="Rifle.hpp" />
     <ClInclude Include="RifleCheckoutState.hpp" />
+    <ClInclude Include="RifleFileSystem.hpp" />
     <ClInclude Include="RifleListState.hpp" />
     <ClInclude Include="RifleManager.hpp" />
+    <ClInclude Include="SerialInputBox.hpp" />
     <ClInclude Include="SettingsParser.hpp" />
+    <ClInclude Include="SettingsState.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

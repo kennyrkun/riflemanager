@@ -9,7 +9,7 @@ SerialInputBox::SerialInputBox(float width) : m_box(SFUI::Box::Type::Input), m_c
 {
 	m_box.setSize(width, SFUI::Theme::getBoxHeight());
 
-	int offset = SFUI::Theme::borderSize + SFUI::Theme::PADDING;
+	float offset = SFUI::Theme::borderSize + SFUI::Theme::PADDING;
 	m_text.setFont(SFUI::Theme::getFont());
 	m_text.setPosition(offset, offset);
 	m_text.setFillColor(SFUI::Theme::input.textColor);
@@ -210,7 +210,7 @@ void SerialInputBox::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	glEnable(GL_SCISSOR_TEST);
 
 	sf::Vector2f pos = getAbsolutePosition();
-	glScissor((pos.x + SFUI::Theme::borderSize) - 1, target.getSize().y - (pos.y + getSize().y), getSize().x - 2, getSize().y);
+	glScissor((pos.x + SFUI::Theme::borderSize) - 1.0f, target.getSize().y - (pos.y + getSize().y), getSize().x - 2.0f, getSize().y);
 	target.draw(m_text, states);
 
 	glDisable(GL_SCISSOR_TEST);

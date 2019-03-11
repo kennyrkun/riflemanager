@@ -8,17 +8,8 @@
     <Filter Include="Source Files\States">
       <UniqueIdentifier>{adc7e368-3ebe-4d2d-9056-da6d324dd181}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\States\Rifle List">
-      <UniqueIdentifier>{615c7f9c-2fba-4e92-941c-1671bae84df6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Utility">
       <UniqueIdentifier>{377db489-7a3d-47f7-8854-a4c72bfd09b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\States\Sign Out">
-      <UniqueIdentifier>{c1bd4fc5-4317-431e-9bf2-475976671a64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\States\Main Menu State">
-      <UniqueIdentifier>{0dda765d-c350-4299-8abf-4bd5dcb14ef1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Utility\Rifle Manager">
       <UniqueIdentifier>{4f1852b9-ec27-497a-9869-7a5704884c50}</UniqueIdentifier>
@@ -32,87 +23,117 @@
     <Filter Include="Source Files\States\AboutState">
       <UniqueIdentifier>{260c9795-e4e1-42de-ad29-8fdd74cdd7a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\States\SettingsState">
-      <UniqueIdentifier>{7f338cfc-7909-4185-9aa2-5ca7ac03bbb6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Utility\Rifle Manager\Rifle File System">
       <UniqueIdentifier>{c1e3ec51-9ed7-4f3f-a6c9-ff9a2f55fae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\AdministrationState\SettingsState">
+      <UniqueIdentifier>{7f338cfc-7909-4185-9aa2-5ca7ac03bbb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\AdministrationState\DebugState">
+      <UniqueIdentifier>{eaf37a05-c31e-4f12-acba-1fa58ed4b19c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\RifleCheckoutState">
+      <UniqueIdentifier>{c1bd4fc5-4317-431e-9bf2-475976671a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\MainMenuState">
+      <UniqueIdentifier>{0dda765d-c350-4299-8abf-4bd5dcb14ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\States\RilfeListState">
+      <UniqueIdentifier>{615c7f9c-2fba-4e92-941c-1671bae84df6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AppEngine.cpp">
-      <Filter>Source Files\Utility\App Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingsParser.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="RifleListState.cpp">
-      <Filter>Source Files\States\Rifle List</Filter>
-    </ClCompile>
-    <ClCompile Include="RifleCheckoutState.cpp">
-      <Filter>Source Files\States\Sign Out</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>Source Files\States\Main Menu State</Filter>
+    <ClCompile Include="AdminState.cpp">
+      <Filter>Source Files\States\AdministrationState</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Rifle.cpp">
-      <Filter>Source Files\Utility\Rifle Manager</Filter>
+      <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
     </ClCompile>
-    <ClCompile Include="RifleManager.cpp">
-      <Filter>Source Files\Utility\Rifle Manager</Filter>
+    <ClCompile Include="SettingsParser.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
     <ClCompile Include="SerialInputBox.cpp">
       <Filter>Source Files\Utility</Filter>
     </ClCompile>
+    <ClCompile Include="RifleManager.cpp">
+      <Filter>Source Files\Utility\Rifle Manager</Filter>
+    </ClCompile>
     <ClCompile Include="RifleFileSystem.cpp">
       <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugState.cpp">
+      <Filter>Source Files\States\AdministrationState\DebugState</Filter>
+    </ClCompile>
+    <ClCompile Include="RifleListState.cpp">
+      <Filter>Source Files\States\RilfeListState</Filter>
+    </ClCompile>
+    <ClCompile Include="RifleCheckoutState.cpp">
+      <Filter>Source Files\States\RifleCheckoutState</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Source Files\States\MainMenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="AppEngine.cpp">
+      <Filter>Source Files\Utility\App Engine</Filter>
     </ClCompile>
     <ClCompile Include="AboutState.cpp">
       <Filter>Source Files\States\AboutState</Filter>
     </ClCompile>
+    <ClCompile Include="SettingsState.cpp">
+      <Filter>Source Files\States\AdministrationState\SettingsState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppEngine.hpp">
-      <Filter>Source Files\Utility\App Engine</Filter>
-    </ClInclude>
     <ClInclude Include="AppState.hpp">
       <Filter>Source Files\Utility\App Engine</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsParser.hpp">
-      <Filter>Source Files\Utility</Filter>
+    <ClInclude Include="AppEngine.hpp">
+      <Filter>Source Files\Utility\App Engine</Filter>
     </ClInclude>
-    <ClInclude Include="RifleListState.hpp">
-      <Filter>Source Files\States\Rifle List</Filter>
-    </ClInclude>
-    <ClInclude Include="RifleCheckoutState.hpp">
-      <Filter>Source Files\States\Sign Out</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuState.hpp">
-      <Filter>Source Files\States\Main Menu State</Filter>
+    <ClInclude Include="DebugState.hpp">
+      <Filter>Source Files\States\AdministrationState\DebugState</Filter>
     </ClInclude>
     <ClInclude Include="Logger.hpp">
       <Filter>Source Files\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="AdminState.hpp">
+      <Filter>Source Files\States\AdministrationState</Filter>
+    </ClInclude>
+    <ClInclude Include="AboutState.hpp">
+      <Filter>Source Files\States\AboutState</Filter>
+    </ClInclude>
     <ClInclude Include="Rifle.hpp">
-      <Filter>Source Files\Utility\Rifle Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="RifleManager.hpp">
-      <Filter>Source Files\Utility\Rifle Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="SerialInputBox.hpp">
-      <Filter>Source Files\Utility</Filter>
+      <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
     </ClInclude>
     <ClInclude Include="RifleFileSystem.hpp">
       <Filter>Source Files\Utility\Rifle Manager\Rifle File System</Filter>
     </ClInclude>
-    <ClInclude Include="AboutState.hpp">
-      <Filter>Source Files\States\AboutState</Filter>
+    <ClInclude Include="RifleManager.hpp">
+      <Filter>Source Files\Utility\Rifle Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsParser.hpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialInputBox.hpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleListState.hpp">
+      <Filter>Source Files\States\RilfeListState</Filter>
+    </ClInclude>
+    <ClInclude Include="RifleCheckoutState.hpp">
+      <Filter>Source Files\States\RifleCheckoutState</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.hpp">
+      <Filter>Source Files\States\MainMenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsState.hpp">
+      <Filter>Source Files\States\AdministrationState\SettingsState</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
