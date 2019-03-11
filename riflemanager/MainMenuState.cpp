@@ -18,11 +18,8 @@ enum CALLBACK
 {
 	RIFLE_LIST,
 	CHECKOUT_RIFLE,
-	SETTINGS,
 	ADMIN,
 	ABOUT,
-	CHECK_IN_ALL,
-	CHECK_OUT_ALL,
 	EXIT
 };
 
@@ -84,19 +81,11 @@ void MainMenuState::HandleEvents()
 			app->PushState(new RifleListState);
 			return;
 			break;
-		case CALLBACK::SETTINGS:
-			break;
 		case CALLBACK::ADMIN:
 			app->PushState(new AdminState);
 			break;
 		case CALLBACK::ABOUT:
 			app->PushState(new AboutState);
-			break;
-		case CALLBACK::CHECK_IN_ALL:
-			app->rm.returnAllRifles();
-			break;
-		case CALLBACK::CHECK_OUT_ALL:
-			app->rm.checkoutAllRifles();
 			break;
 		case CALLBACK::EXIT:
 			app->Quit();
@@ -131,19 +120,13 @@ SFUI::Menu* MainMenuState::buildMainMenu()
 
 #ifdef _DEBUG
 	SFUI::VerticalBoxLayout* rightPanel = topPanelContainer->addVerticalBoxLayout();
-	rightPanel->addButton("Settings", CALLBACK::SETTINGS);
 	rightPanel->addButton("Admin", CALLBACK::ADMIN);
 	rightPanel->addButton("About", CALLBACK::ABOUT);
-
-	rightPanel->addHorizontalBoxLayout();
-	rightPanel->addHorizontalBoxLayout();
-	rightPanel->addHorizontalBoxLayout();
-
-	rightPanel->addButton("Check In All", CALLBACK::CHECK_IN_ALL);
-	rightPanel->addButton("Check Out All", CALLBACK::CHECK_OUT_ALL);
 #endif
 
 #ifndef PLATFORM_TOUCH
+	newMenu->addHorizontalBoxLayout();
+
 	newMenu->addButton("Exit", CALLBACK::EXIT);
 #endif
 

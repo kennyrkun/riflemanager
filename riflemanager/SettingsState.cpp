@@ -84,6 +84,8 @@ SFUI::Menu* SettingsState::buildMainMenu()
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(10, 10));
 
+	newMenu->addLabel("SettingsState");
+
 	newMenu->addButton("Back", CALLBACK::BACK);
 
 	return newMenu;

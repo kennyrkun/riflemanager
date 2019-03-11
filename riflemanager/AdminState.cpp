@@ -1,4 +1,6 @@
 #include "AdminState.hpp"
+#include "DebugState.hpp"
+#include "SettingsState.hpp"
 
 #include "Logger.hpp"
 
@@ -7,6 +9,8 @@
 enum CALLBACK
 {
 	BACK,
+	DEBUG,
+	SETTINGS
 };
 
 void AdminState::Init(AppEngine* app)
@@ -58,6 +62,12 @@ void AdminState::HandleEvents()
 
 	switch (id)
 	{
+	case CALLBACK::SETTINGS:
+		app->PushState(new SettingsState);
+		break;
+	case CALLBACK::DEBUG:
+		app->PushState(new DebugState);
+		break;
 	case CALLBACK::BACK:
 		app->PopState();
 		break;
@@ -82,9 +92,18 @@ void AdminState::Draw()
 SFUI::Menu* AdminState::buildMainMenu()
 {
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
-	newMenu->setPosition(sf::Vector2f(10, 10));
+	newMenu->setPosition(sf::Vector2f(8, 10));
+
+	newMenu->addLabel("AdminState");
+
+	newMenu->addButton("Settings", CALLBACK::SETTINGS);
+	newMenu->addButton("Debug", CALLBACK::DEBUG);
+
+#ifndef PLATFORM_TOUCH
+	newMenu->addHorizontalBoxLayout();
 
 	newMenu->addButton("Back", CALLBACK::BACK);
+#endif
 
 	return newMenu;
 }
