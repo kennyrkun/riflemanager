@@ -5,10 +5,10 @@
 #include "AboutState.hpp"
 #include "AdminState.hpp"
 
-#include <SFUI/SFUI.hpp>
-
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
+
+#include <SFUI/SFUI.hpp>
 
 #include <experimental/filesystem>
 
@@ -112,16 +112,16 @@ SFUI::Menu* MainMenuState::buildMainMenu()
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(8, 10));
 
-	SFUI::HorizontalBoxLayout* topPanelContainer= newMenu->addHorizontalBoxLayout();
+	SFUI::HorizontalBoxLayout* panelContainer= newMenu->addHorizontalBoxLayout();
 
-	SFUI::VerticalBoxLayout* leftPanel = topPanelContainer->addVerticalBoxLayout();
+	SFUI::VerticalBoxLayout* leftPanel = panelContainer->addVerticalBoxLayout();
 	leftPanel->addButton("Rifle List", CALLBACK::RIFLE_LIST);
 	leftPanel->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
+	leftPanel->addButton("About", CALLBACK::ABOUT);
 
-#ifdef _DEBUG
-	SFUI::VerticalBoxLayout* rightPanel = topPanelContainer->addVerticalBoxLayout();
+#ifdef NDEBUG
+	SFUI::VerticalBoxLayout* rightPanel = panelContainer->addVerticalBoxLayout();
 	rightPanel->addButton("Admin", CALLBACK::ADMIN);
-	rightPanel->addButton("About", CALLBACK::ABOUT);
 #endif
 
 #ifndef PLATFORM_TOUCH

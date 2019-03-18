@@ -3,9 +3,9 @@
 
 #include "AppState.hpp"
 
-#include <SFUI/Layouts/Menu.hpp>
-
 #include "RifleManager.hpp"
+
+#include <SFUI/Layouts/Menu.hpp>
 
 class MainMenuState : public AppState
 {
