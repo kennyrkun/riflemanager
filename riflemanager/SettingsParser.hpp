@@ -23,6 +23,7 @@
 #ifndef SETTINGSPARSER_INCLUDE
 #define SETTINGSPARSER_INCLUDE
 
+#include "Logger.hpp"
 #include <string>
 #include <map>
 #include <vector>
@@ -115,7 +116,8 @@ inline std::string SettingsParser::convertToStr(T value) const
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "[SettingsParser] ERROR: " << e.what() << std::endl;
+		logger::ERROR("SettingsParser] ERROR: ");
+		logger::ERROR(e.what());
 		throw "Unsupported type supplied, either change types, or write a correct conversion function for the template type.";
 	}
 }
@@ -207,7 +209,8 @@ inline T SettingsParser::convertToType(const std::string &input) const
 	}
 	catch (const std::exception& e)
 	{
-		std::cerr << "[SettingsParser] ERROR: " << e.what() << std::endl;
+		logger::ERROR("[SettingsParser] ERROR: ");
+		logger::ERROR(e.what());
 		throw "Unconvertable type encountered, please use a different type, or define the handle case in SettingsParser.hpp";
 	}
 }
@@ -329,7 +332,7 @@ inline T SettingsParser::get(const std::string& key) const
 	if (it != m_data.end())
 		return convertToType<T>(it->second);
 	else
-		std::cerr << "failed to find key \"" << key << "\"" << std::endl;
+		logger::ERROR("failed to find key \"" + key + "\"");
 }
 
 template<typename T>
