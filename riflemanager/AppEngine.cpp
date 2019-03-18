@@ -1,10 +1,10 @@
 #include "AppEngine.hpp"
 #include "AppState.hpp"
 
-#include <SFUI/Theme.hpp>
-
 #include "Logger.hpp"
 #include "SettingsParser.hpp"
+
+#include <SFUI/Theme.hpp>
 
 #include <ctime>
 
@@ -169,7 +169,7 @@ const std::string AppEngine::getTimestamp()
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
-	localtime_s(&timeinfo, &now);
+	localtime_r(&now, &timeinfo);
 	strftime(buf, sizeof(buf), "%F.%H-%M-%S", &timeinfo);
 
 	return buf;
