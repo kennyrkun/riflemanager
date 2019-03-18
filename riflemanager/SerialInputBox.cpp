@@ -1,6 +1,9 @@
+#ifdef _WIN32
 #include <SFML/OpenGL.hpp>
+#endif
 
 #include "SerialInputBox.hpp"
+
 #include <SFUI/Theme.hpp>
 
 #include <sstream>
@@ -206,6 +209,7 @@ void SerialInputBox::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	states.transform *= getTransform();
 	target.draw(m_box, states);
 
+#ifdef _WIN32
 	// Crop the text with GL Scissor
 	glEnable(GL_SCISSOR_TEST);
 
@@ -214,6 +218,11 @@ void SerialInputBox::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	target.draw(m_text, states);
 
 	glDisable(GL_SCISSOR_TEST);
+#else // mostly Unix.
+	// FIXME: this needs to be scissored
+	// the problem is that I cannot seem to link libGL.
+	target.draw(m_text, states);
+#endif
 
 	// Show cursor if focused
 	if (isFocused())
