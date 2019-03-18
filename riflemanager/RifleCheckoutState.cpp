@@ -1,11 +1,11 @@
 #include "AppEngine.hpp"
-#include "RifleCheckOutState.hpp"
+#include "RifleCheckoutState.hpp"
 #include "MainMenuState.hpp"
-
-#include <SFUI/SFUI.hpp>
 
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
+
+#include <SFUI/SFUI.hpp>
 
 #include <experimental/filesystem>
 
@@ -144,6 +144,7 @@ SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 
 	SFUI::FormLayout* form = newMenu->addFormLayout();
 
+    // FIXME: these are the cause of the segfaults
 	delete name;
 	name = new SFUI::InputBox(170);
 

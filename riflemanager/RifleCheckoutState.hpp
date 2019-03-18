@@ -3,11 +3,11 @@
 
 #include "AppState.hpp"
 
-#include <SFUI/Layouts/Menu.hpp>
-#include <SFUI/InputBox.hpp>
-
 #include "RifleManager.hpp"
 #include "SerialInputBox.hpp"
+
+#include <SFUI/Layouts/Menu.hpp>
+#include <SFUI/InputBox.hpp>
 
 // FIXME: resizing too small causes infinite (or so it seems) hang
 

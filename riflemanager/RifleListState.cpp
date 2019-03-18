@@ -2,11 +2,11 @@
 #include "RifleListState.hpp"
 #include "MainMenuState.hpp"
 
-#include <SFUI/SFUI.hpp>
-
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 #include "RifleFileSystem.hpp"
+
+#include <SFUI/SFUI.hpp>
 
 #include <experimental/filesystem>
 

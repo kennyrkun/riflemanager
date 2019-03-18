@@ -3,10 +3,10 @@
 
 #include "AppState.hpp"
 
+#include "RifleManager.hpp"
+
 #include <SFUI/Layouts/Menu.hpp>
 #include <SFUI/CheckBox.hpp>
-
-#include "RifleManager.hpp"
 
 // FIXME: resizing too small causes infinite (or so it seems) hang
 
