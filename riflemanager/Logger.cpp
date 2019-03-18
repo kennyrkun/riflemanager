@@ -13,7 +13,7 @@ const std::string getDateStamp()
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
-	localtime_s(&timeinfo, &now);
+	localtime_r(&now, &timeinfo);
 	strftime(buf, sizeof(buf), "%F", &timeinfo);
 
 	return buf;
@@ -26,7 +26,7 @@ const std::string getTimestamp()
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
-	localtime_s(&timeinfo, &now);
+	localtime_r(&now, &timeinfo);
 	strftime(buf, sizeof(buf), "%H-%M-%S", &timeinfo);
 
 	return buf;
@@ -88,7 +88,7 @@ namespace logger
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 			std::cout << output << std::endl;
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
-#elif // Unix probably
+#elif defined __unix__ 
 			std::cout << "\u001b[33m" << output << "\u001b[0m" << std::endl;
 #else // anything else
 			std::cout << output << std::endl;
@@ -109,7 +109,7 @@ namespace logger
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
 			std::cout << output << std::endl;
 			SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
-#elif // Unix probably
+#elif defined __unix__ 
 			std::cout << "\u001b[31m" << output << "\u001b[0m" << std::endl;
 #else // anything else
 			std::cout << output << std::endl;
