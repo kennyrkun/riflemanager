@@ -10,7 +10,9 @@ enum CALLBACK
 {
 	BACK,
 	DEBUG,
-	SETTINGS
+	SETTINGS,
+	SIGN_OUT_ALL,
+	SIGN_IN_ALL
 };
 
 void AdminState::Init(AppEngine* app)
@@ -71,6 +73,12 @@ void AdminState::HandleEvents()
 	case CALLBACK::BACK:
 		app->PopState();
 		break;
+	case CALLBACK::SIGN_OUT_ALL:
+		app->rm.checkoutAllRifles();
+		break;
+	case CALLBACK::SIGN_IN_ALL:
+		app->rm.checkoutAllRifles();
+		break;
 	default:
 		break;
 	}
@@ -98,6 +106,11 @@ SFUI::Menu* AdminState::buildMainMenu()
 
 	newMenu->addButton("Settings", CALLBACK::SETTINGS);
 	newMenu->addButton("Debug", CALLBACK::DEBUG);
+
+	newMenu->addHorizontalBoxLayout();
+
+	newMenu->addButton("Checkout all Rifles", CALLBACK::SIGN_OUT_ALL);
+	newMenu->addButton("Return all Rifles", CALLBACK::SIGN_IN_ALL);
 
 #ifndef PLATFORM_TOUCH
 	newMenu->addHorizontalBoxLayout();
