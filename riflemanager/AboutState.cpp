@@ -94,6 +94,12 @@ SFUI::Menu* AboutState::buildMainMenu()
 
 	newMenu->addLabel("RifleManager\nVersion: " + std::to_string(app->settings.version) + "\nCompiled on " + __DATE__ + " at " + __TIME__);
 
+	#ifdef NDEBUG
+	newMenu->addLabel("Compiled in Debug mode.");
+	#else
+	newMenu->addLabel("Compiled in Release mode.");
+	#endif
+
 	newMenu->addHorizontalBoxLayout();
 
 	newMenu->addButton("Source", CALLBACK::SOURCE);
