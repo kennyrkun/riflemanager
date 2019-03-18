@@ -9,6 +9,16 @@
 
 int main(int argc, char* argv[])
 {
+	#ifdef IS_DEBUG_ENABLED
+	logger::WARNING("debug is enabled?");
+	#endif
+
+	#ifdef NDEBUG
+	logger::WARNING("Running in Debug mode. (NDEBUG is defined)");
+	#else // release probably
+	logger::WARNING("Running in Release mode... probably. (NDEBUG is not defined.)");
+	#endif
+
 	AppEngine app;
 	AppSettings settings;
 	settings.commandline = { argc, argv };
@@ -18,7 +28,7 @@ int main(int argc, char* argv[])
 	// FIXME: this should actually be set in app.Initialise
 	app.window->setVerticalSyncEnabled(true);
 
-#ifdef _DEBUG
+#ifdef NDEBUG
 	// HACK: keeps program from using 30% cpu while idle
 	app.window->setFramerateLimit(60);
 #endif
