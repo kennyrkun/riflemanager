@@ -3,7 +3,7 @@
 #include "SettingsParser.hpp"
 #include "Logger.hpp"
 
-#include <filesystem>
+#include <experimental/filesystem>
 #include <string>
 
 namespace fs = std::experimental::filesystem;
@@ -21,13 +21,13 @@ rifle::Info rifle::loadInfo(serial serial)
 		sp.get("user", info.user);
 		sp.get("type", info.type);
 
-		info.serial = serial;
+		info.serviceNo = serial;
 	}
 	else
 	{
 		logger::INFO("rifle " + std::to_string(serial) + " does not exist!");
 
-		info.serial = 0;
+		info.serviceNo = 0;
 		info.status = "INVALID RIFLE";
 		info.type = "INVALID RIFLE";
 		info.user = "INVALID RIFLE";

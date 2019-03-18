@@ -22,12 +22,12 @@ namespace rifle
 		std::string status;
 		std::string notes;
 		std::string user;
-		serial serial;
+		serial serviceNo;
 
 		// std::vector<Note> notes;
 	};
 
-	Info loadInfo(serial serial);
+	Info loadInfo(serial serviceNo);
 }
 
 #endif // !RIFLE_HPP
