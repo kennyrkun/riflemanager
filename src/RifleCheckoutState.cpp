@@ -24,6 +24,9 @@ void RifleCheckoutState::Init(AppEngine* app_)
 	logger::INFO("RifleCheckoutState Init");
 	app = app_;
 
+	name = new SFUI::InputBox(170);
+	rifleID = new SerialInputBox(47);
+
 	menu = buildRifleMenu();
 
 	logger::INFO("RifleCheckoutState ready");
@@ -63,12 +66,17 @@ void RifleCheckoutState::HandleEvents()
 			sf::FloatRect visibleArea(0.0f, 0.0f, event.size.width, event.size.height);
 			app->window->setView(sf::View(visibleArea));
 		}
+		else if (event.type == sf::Event::EventType::KeyPressed)
+		{
+			if (event.key.code == sf::Keyboard::Key::Escape)
+				app->PopState();
+		}
 
 		int id = menu->onEvent(event);
 
-		if (id > 0)
+		switch (id)
 		{
-			if (id == CALLBACK::SIGN_OUT)
+			case CALLBACK::SIGN_OUT:
 			{
 				logger::INFO("sign out");
 				logger::INFO("name: " + name->getText().toAnsiString());
@@ -114,11 +122,14 @@ void RifleCheckoutState::HandleEvents()
 					// TODO: we could put a 1 pixel outline box over the invalid areas
 					logger::INFO("not ready to sign out rifle.");
 				}
+
+				break;
 			}
-			else if (id == CALLBACK::BACK)
+			case CALLBACK::BACK:
 			{
 				app->PopState();
 				return;
+				break;
 			}
 		}
 	}
@@ -144,12 +155,7 @@ SFUI::Menu* RifleCheckoutState::buildRifleMenu()
 
 	SFUI::FormLayout* form = newMenu->addFormLayout();
 
-    // FIXME: these are the cause of the segfaults
-	delete name;
-	name = new SFUI::InputBox(170);
-
-	delete rifleID;
-	rifleID = new SerialInputBox(47);
+	// name and rifleid are initialised in init
 
 	form->addRow("Name:", name, CALLBACK::NAME);
 	form->addRow("S/N:", rifleID, CALLBACK::RIFLE_ID);
