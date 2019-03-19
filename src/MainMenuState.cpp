@@ -117,12 +117,10 @@ SFUI::Menu* MainMenuState::buildMainMenu()
 	SFUI::VerticalBoxLayout* leftPanel = panelContainer->addVerticalBoxLayout();
 	leftPanel->addButton("Rifle List", CALLBACK::RIFLE_LIST);
 	leftPanel->addButton("Checkout Rifle", CALLBACK::CHECKOUT_RIFLE);
-	leftPanel->addButton("About", CALLBACK::ABOUT);
 
-#ifdef NDEBUG
 	SFUI::VerticalBoxLayout* rightPanel = panelContainer->addVerticalBoxLayout();
+	rightPanel->addButton("About", CALLBACK::ABOUT);
 	rightPanel->addButton("Admin", CALLBACK::ADMIN);
-#endif
 
 #ifndef PLATFORM_TOUCH
 	newMenu->addHorizontalBoxLayout();

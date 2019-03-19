@@ -269,3 +269,4 @@ __pycache__/
 /riflemanager/resources
 src/.vscode/c_cpp_properties.json
 /src/resources/rifleinventory
+/src/resources/admin
