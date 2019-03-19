@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Define sources and executable
 set(EXECUTABLE_NAME "riflemanager")
-add_executable(${EXECUTABLE_NAME} ./src/AboutState.hpp ./src/AboutState.cpp ./src/AdminState.hpp ./src/AdminState.cpp ./src/AppEngine.hpp ./src/AppEngine.cpp ./src/AppState.hpp ./src/DebugState.hpp ./src/DebugState.cpp ./src/Logger.hpp ./src/Logger.cpp ./src/main.cpp ./src/MainMenuState.hpp ./src/MainMenuState.cpp ./src/Rifle.hpp ./src/Rifle.cpp ./src/RifleCheckoutState.hpp ./src/RifleCheckoutState.cpp ./src/RifleFileSystem.hpp ./src/RifleFileSystem.cpp ./src/RifleListState.hpp ./src/RifleListState.cpp ./src/RifleManager.hpp ./src/RifleManager.cpp ./src/SerialInputBox.hpp ./src/SerialInputBox.cpp ./src/SettingsParser.hpp ./src/SettingsParser.cpp ./src/SettingsState.hpp ./src/SettingsState.cpp)
+add_executable(${EXECUTABLE_NAME} ./src/AboutState.hpp ./src/AboutState.cpp ./src/AdminState.hpp ./src/AdminState.cpp ./src/AppEngine.hpp ./src/AppEngine.cpp ./src/AppState.hpp ./src/DebugState.hpp ./src/DebugState.cpp ./src/Logger.hpp ./src/Logger.cpp ./src/main.cpp ./src/MainMenuState.hpp ./src/MainMenuState.cpp ./src/Rifle.hpp ./src/Rifle.cpp ./src/RifleCheckoutState.hpp ./src/RifleCheckoutState.cpp ./src/RifleFileSystem.hpp ./src/RifleFileSystem.cpp ./src/RifleListState.hpp ./src/RifleListState.cpp ./src/RifleManager.hpp ./src/RifleManager.cpp ./src/SerialInputBox.hpp ./src/SerialInputBox.cpp ./src/SettingsParser.hpp ./src/SettingsParser.cpp ./src/SettingsState.hpp ./src/SettingsState.cpp ./src/Password.hpp ./src/Password.cpp ./src/PicoSHA256.hpp)
 
 # Detect and add SFML
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
