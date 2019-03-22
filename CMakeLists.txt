@@ -1,4 +1,3 @@
-#Change this if you need to target a specific CMake version
 cmake_minimum_required(VERSION 2.6)
 
 project(riflemanager LANGUAGES CXX)
@@ -11,17 +10,21 @@ set(EXECUTABLE_NAME "riflemanager")
 add_executable(${EXECUTABLE_NAME} ./src/AboutState.hpp ./src/AboutState.cpp ./src/AdminState.hpp ./src/AdminState.cpp ./src/AppEngine.hpp ./src/AppEngine.cpp ./src/AppState.hpp ./src/DebugState.hpp ./src/DebugState.cpp ./src/Logger.hpp ./src/Logger.cpp ./src/main.cpp ./src/MainMenuState.hpp ./src/MainMenuState.cpp ./src/Rifle.hpp ./src/Rifle.cpp ./src/RifleCheckoutState.hpp ./src/RifleCheckoutState.cpp ./src/RifleFileSystem.hpp ./src/RifleFileSystem.cpp ./src/RifleListState.hpp ./src/RifleListState.cpp ./src/RifleManager.hpp ./src/RifleManager.cpp ./src/SerialInputBox.hpp ./src/SerialInputBox.cpp ./src/SettingsParser.hpp ./src/SettingsParser.cpp ./src/SettingsState.hpp ./src/SettingsState.cpp ./src/Password.hpp ./src/Password.cpp ./src/PicoSHA256.hpp)
 
 # Detect and add SFML
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML 2 REQUIRED network audio graphics window system)
-if(SFML_FOUND)
-  include_directories(${SFML_INCLUDE_DIR})
-  target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
-endif()
+# only do this on unix, because I don't know if it works on other platforms and toolchains
+# I know it doesn't work on Windows for Visual Studio
+if(UNIX)
+	set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+	find_package(SFML 2 REQUIRED network audio graphics window system)
+	if(SFML_FOUND)
+	  include_directories(${SFML_INCLUDE_DIR})
+	  target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+	endif()
 
-include_directories(${CMAKE_SOURCE_DIR}/SFUI/)
-link_directories(${CMAKE_SOURCE_DIR}/SFUI/)
-target_link_libraries(riflemanager ${CMAKE_SOURCE_DIR}/SFUI/SFUI.a)
-target_link_libraries(riflemanager stdc++fs)
+	include_directories(${CMAKE_SOURCE_DIR}/SFUI/)
+	link_directories(${CMAKE_SOURCE_DIR}/SFUI/)
+	target_link_libraries(riflemanager ${CMAKE_SOURCE_DIR}/SFUI/SFUI.a)
+	target_link_libraries(riflemanager stdc++fs)
+endif(WIN32)
 
 # I don't know how to use CMake.
 # If you want it in debug, create the config using -DCMAKE_BUILD_TYPE=Release

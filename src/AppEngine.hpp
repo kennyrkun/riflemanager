@@ -67,6 +67,24 @@ public:
 	RifleManager rm;
 
 private:
+	/*
+	class Event
+	{
+	public:
+		enum Type
+		{
+			PushState,
+			ChangeState,
+			PopState,
+			Quit,
+		};
+
+		bool cancelled = false;
+
+		time_t spawnTime;
+	};
+	*/
+
 	enum class EventType
 	{
 		PushState,
