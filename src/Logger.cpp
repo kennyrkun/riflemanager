@@ -8,12 +8,31 @@
 	#undef ERROR
 #endif
 
+
+/*
+// TODO: log settings
+
+enum LOG
+{
+	NoPrint,
+	NoWrite,
+	NoNewLine,
+};
+
+*/
+
 const std::string getDateStamp()
 {
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
+
+#ifdef _WIN32
+	localtime_s(&timeinfo, &now);
+#else
 	localtime_r(&now, &timeinfo);
+#endif
+
 	strftime(buf, sizeof(buf), "%F", &timeinfo);
 
 	return buf;
@@ -26,7 +45,13 @@ const std::string getTimestamp()
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
+
+#ifdef _WIN32
+	localtime_s(&timeinfo, &now);
+#else
 	localtime_r(&now, &timeinfo);
+#endif
+	
 	strftime(buf, sizeof(buf), "%H-%M-%S", &timeinfo);
 
 	return buf;
@@ -46,12 +71,21 @@ void writeLog(const std::string output)
 
 		if (log.bad())
 		{
-			std::cerr << "failed to write to log!" << std::endl;
+			std::cerr << "!!FAILED TO WRITE LOG!!" << std::endl;
 		}
 	}
 	else
 	{
-		std::cerr << "unable to open log file for writing!" << std::endl;
+#ifdef _WIN32 // TODO: make sure these work on other platforms
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY);
+		std::cout << "LOGGER-ERROR: Unable to open the log file for writing!" << std::endl;
+		SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_GREEN);
+#elif defined __unix__ 
+		std::cout << "\u001b[31m" << "LOGGER-ERROR: Unable to open the log file for writing!" << "\u001b[0m" << std::endl;
+#else // anything else
+		std::cout << output << std::endl;
+#endif
 	}
 }
 

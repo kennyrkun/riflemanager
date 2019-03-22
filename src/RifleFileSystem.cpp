@@ -39,7 +39,7 @@ bool rfs::removeRifle(rifle::serial serial)
 	}
 }
 
-bool rfs::newRifle(rifle::serial serial)
+bool rfs::newRifle(rifle::serial serial, std::string type)
 {
 	if (doesRifleExist(serial))
 	{
@@ -47,7 +47,7 @@ bool rfs::newRifle(rifle::serial serial)
 		return false;
 	}
 
-	// create the rifle
+	// TODO: create the rifle
 }
 
 size_t rfs::getRifleCount()

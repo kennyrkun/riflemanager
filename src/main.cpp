@@ -9,14 +9,12 @@
 
 int main(int argc, char* argv[])
 {
-	#ifdef IS_DEBUG_ENABLED
-	logger::WARNING("debug is enabled?");
-	#endif
+	logger::INFO(argv[0]);
 
-	#ifdef NDEBUG
+	#ifdef deifined(NDEBUG) || defined(_NDEBUG)
 	logger::WARNING("Running in Debug mode. (NDEBUG is defined)");
 	#else // release probably
-	logger::WARNING("Running in Release mode... probably. (NDEBUG is not defined.)");
+	logger::INFO("Running in Release mode... probably. (NDEBUG is not defined.)");
 	#endif
 
 	AppEngine app;

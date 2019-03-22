@@ -4,6 +4,7 @@
 #include "Rifle.hpp"
 
 #include <vector>
+#include <string>
 
 // rifle file system
 namespace rfs
@@ -14,7 +15,7 @@ namespace rfs
 	bool removeRifle(rifle::serial serial);
 
 	// adds a new rifle to the file system
-	bool newRifle(rifle::serial serial);
+	bool newRifle(rifle::serial serial, std::string type);
 
 	// returns the amount of rifles in the file system
 	size_t getRifleCount();

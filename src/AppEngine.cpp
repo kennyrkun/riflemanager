@@ -48,7 +48,7 @@ void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 		SFUI::Theme::input.textColorHover = SFUI::Theme::hexToRgb(inputTextColorHover);
 		SFUI::Theme::input.textColorFocus = SFUI::Theme::hexToRgb(inputTextColorFocus);
 		SFUI::Theme::windowBgColor = SFUI::Theme::hexToRgb(windowBgColor);
-		SFUI::Theme::PADDING = std::stoi(PADDING);
+		SFUI::Theme::PADDING = std::stof(PADDING);
 	}
 	else
 	{
@@ -169,7 +169,13 @@ const std::string AppEngine::getTimestamp()
 	time_t     now = time(0);
 	struct tm  timeinfo;
 	char       buf[80];
+
+#ifdef _WIN32
+	localtime_s(&timeinfo, &now);
+#else
 	localtime_r(&now, &timeinfo);
+#endif
+
 	strftime(buf, sizeof(buf), "%F.%H-%M-%S", &timeinfo);
 
 	return buf;

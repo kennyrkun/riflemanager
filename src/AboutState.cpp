@@ -52,7 +52,6 @@ void AboutState::HandleEvents()
 
 			sf::FloatRect visibleArea(0.0f, 0.0f, event.size.width, event.size.height);
 			app->window->setView(sf::View(visibleArea));
-
 		}
 	}
 
