@@ -129,7 +129,6 @@ void RifleCheckoutState::HandleEvents()
 			{
 				app->PopState();
 				return;
-				break;
 			}
 		}
 	}

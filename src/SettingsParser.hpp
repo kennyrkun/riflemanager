@@ -18,7 +18,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 ////////////////////////////////////////////////////////////
 
-// Revision 6
+// Revision 7
 
 #ifndef SETTINGSPARSER_INCLUDE
 #define SETTINGSPARSER_INCLUDE
@@ -47,7 +47,7 @@ class SettingsParser
 public:
 	SettingsParser();
 	// constructs, loads, and parses file at filename
-	SettingsParser(const std::string& filename);
+	explicit SettingsParser(const std::string& filename);
 	~SettingsParser();
 
 	// loads and parses a file at filename

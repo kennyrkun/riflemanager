@@ -71,7 +71,6 @@ void RifleListState::HandleEvents()
 			{
 				app->PopState();
 				return;
-				break;
 			}
 			case CALLBACKS::SHOW_ALL_RIFLES:
 			{
