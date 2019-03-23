@@ -62,12 +62,16 @@ void AboutState::HandleEvents()
 	case CALLBACK::BACK:
 		app->PopState();
 		break;
+#ifdef WIN32 // we don't even care about these on other platforms (because i don't know how :( )
 	case CALLBACK::SOURCE:
+		// TODO: do this in a not-gay way
 		system("start https://github.com/kennyrkun/riflemanager");
 		break;
 	case CALLBACK::ISSUES:
+		// TODO: do this in a not-gay way
 		system("start https://github.com/kennyrkun/riflemanager/issues");
 		break;
+#endif
 	default:
 		break;
 	}
@@ -99,10 +103,14 @@ SFUI::Menu* AboutState::buildMainMenu()
 	newMenu->addLabel("Compiled in Release mode.");
 	#endif
 
+	newMenu->addLabel("Third Party Libraries:\nSFML\nSFUI\nPicoSHA256\nSettingsParser");
+
 	newMenu->addHorizontalBoxLayout();
 
+#ifdef WIN32
 	newMenu->addButton("Source", CALLBACK::SOURCE);
 	newMenu->addButton("Issues", CALLBACK::ISSUES);
+#endif
 
 	newMenu->addHorizontalBoxLayout();
 
