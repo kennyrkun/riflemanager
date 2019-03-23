@@ -5,6 +5,11 @@
 
 #include <SFUI/Layouts/Menu.hpp>
 
+// TODO: settings controlling minimum length for serial numbers
+// TODO: settings controlling maximum length for serial numbers
+// TODO: settings controlling range for serial numbers
+// TODO: settings controlling alphanumeric serial numbers
+
 class SettingsState : public AppState
 {
 public:

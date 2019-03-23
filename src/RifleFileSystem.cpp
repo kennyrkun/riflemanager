@@ -5,6 +5,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include <experimental/filesystem>
+#include <fstream>
 
 namespace fs = std::experimental::filesystem;
 
@@ -47,7 +48,34 @@ bool rfs::newRifle(rifle::serial serial, const std::string& type)
 		return false;
 	}
 
-	// TODO: create the rifle
+	try
+	{
+		fs::create_directory("./resources/rifleinventory/" + std::to_string(serial));
+	}
+	catch (std::exception& e)
+	{
+		logger::ERROR("Failed to crate new rifle directory:");
+		logger::ERROR(e.what());
+
+		return false;
+	}
+
+	std::ofstream createInfo("./resources/rifleinventory/" + std::to_string(serial) + "/info.dat");
+
+	if (createInfo.is_open())
+	{
+		createInfo << "serial = " << serial << std::endl;
+		createInfo << "user = NO+USER" << std::endl;
+		createInfo << "type = " << type << std::endl;
+		createInfo << "status = in" << std::endl;
+	}
+	else
+	{
+		logger::ERROR("Failed to create info for new rifle!");
+		return false;
+	}
+
+	return true;
 }
 
 size_t rfs::getRifleCount()

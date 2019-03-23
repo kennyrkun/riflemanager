@@ -1,6 +1,7 @@
 #include "AdminState.hpp"
 #include "DebugState.hpp"
 #include "SettingsState.hpp"
+#include "NewRifleState.hpp"
 
 #include "Logger.hpp"
 #include "Password.hpp"
@@ -27,6 +28,7 @@ enum Admin
 	SETTINGS,
 	CHECKOUT_ALL_RIFLES,
 	RETURN_ALL_RIFLES,
+	ADD_NEW_RIFLE,
 	LOGOUT,
 
 	BACK_A
@@ -106,6 +108,9 @@ void AdminState::HandleEvents()
 				break;
 			case Admin::RETURN_ALL_RIFLES:
 				app->rm.returnAllRifles();
+				break;
+			case Admin::ADD_NEW_RIFLE:
+				app->PushState(new NewRifleState);
 				break;
 			case Admin::LOGOUT:
 				app->adminLoggedIn = false;
@@ -272,7 +277,7 @@ SFUI::Menu* AdminState::buildMainMenu()
 
 	newMenu->addHorizontalBoxLayout();
 
-	newMenu->addButton("Add Rifle");
+	newMenu->addButton("Add Rifle", Admin::ADD_NEW_RIFLE);
 	newMenu->addButton("Remove Rifle");
 
 #ifndef PLATFORM_TOUCH

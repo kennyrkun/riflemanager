@@ -52,25 +52,24 @@ void DebugState::HandleEvents()
 
 			sf::FloatRect visibleArea(0.0f, 0.0f, event.size.width, event.size.height);
 			app->window->setView(sf::View(visibleArea));
-
 		}
-	}
 
-	int id = menu->onEvent(event);
+		int id = menu->onEvent(event);
 
-	switch (id)
-	{
-	case CALLBACK::CHECK_IN_ALL:
-		app->rm.returnAllRifles();
-		break;
-	case CALLBACK::CHECK_OUT_ALL:
-		app->rm.checkoutAllRifles();
-		break;
-	case CALLBACK::BACK:
-		app->PopState();
-		break;
-	default:
-		break;
+		switch (id)
+		{
+		case CALLBACK::CHECK_IN_ALL:
+			app->rm.returnAllRifles();
+			break;
+		case CALLBACK::CHECK_OUT_ALL:
+			app->rm.checkoutAllRifles();
+			break;
+		case CALLBACK::BACK:
+			app->PopState();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
