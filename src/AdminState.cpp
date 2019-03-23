@@ -6,12 +6,19 @@
 #include "Password.hpp"
 
 #include <SFUI/SFUI.hpp>
+#include <experimental/filesystem>
+#include <fstream>
+
+namespace fs = std::experimental::filesystem;
 
 enum Login
 {
-	BACK_L,
 	FORGOT_PASSWORD,
 	LOGIN,
+
+	FIRST_TIME_ADMIN,
+
+	BACK_L,
 };
 
 enum Admin
@@ -118,6 +125,44 @@ void AdminState::HandleEvents()
 
 				break;
 			}
+			case Login::FIRST_TIME_ADMIN:
+			{
+				// TODO: visually notify
+				if (passwordBox->getText() != passwordConfirmBox->getText())
+				{
+					logger::ERROR("Passwords do not match.");
+				}
+				else
+				{
+					fs::create_directory("./resources/admin");
+
+					{
+						std::ofstream createPassowrds("./resources/admin/hashedpasswords");
+
+						if (!createPassowrds.is_open())
+						{
+							logger::ERROR("Failed to create hashedpasswords");
+							break;
+						}
+
+						std::ofstream createSalts("./resources/admin/salts");
+
+						if (!createSalts.is_open())
+						{
+							logger::ERROR("Failed to create salts");
+							break;
+						}
+					}
+
+					// TODO: check for failure
+					password::generateHashedPassword(usernameBox->getText().toAnsiString(), passwordBox->getText().toAnsiString());
+
+					delete menu;
+					menu = buildAdminLogin();
+				}
+
+				break;
+			}
 			case Login::BACK_L:
 				app->PopState();
 				break;
@@ -152,22 +197,46 @@ SFUI::Menu* AdminState::buildAdminLogin()
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(8, 10));
 
-	newMenu->addLabel("Administrator Login");
+	if (!fs::exists("./resources/admin"))
+	{
+		newMenu->addLabel("First Time Admin Setup");
 
-	usernameBox = new SFUI::InputBox();
-	newMenu->add(usernameBox);
-	
-	// TODO: PasswordInputBox
-	// hides the input and shows dots instead
-	passwordBox = new SFUI::InputBox();
-	newMenu->add(passwordBox);
+		newMenu->addLabel("Username");
+		usernameBox = new SFUI::InputBox();
+		newMenu->add(usernameBox);
 
-	newMenu->addLabel("Forgot password?");
+		// TODO: PasswordInputBox
+		// hides the input and shows dots instead
+		newMenu->addLabel("Password");
+		passwordBox = new SFUI::InputBox();
+		newMenu->add(passwordBox);
+		
+		// TODO: confirm password
+		newMenu->addLabel("Confirm Password");
+		passwordConfirmBox = new SFUI::InputBox();
+		newMenu->add(passwordConfirmBox);
 
-	newMenu->addHorizontalBoxLayout();
-	
-	newMenu->addButton("Login", Login::LOGIN);
-	newMenu->addButton("Back", Login::BACK_L);
+		newMenu->addButton("Create", Login::FIRST_TIME_ADMIN);
+	}
+	else
+	{
+		newMenu->addLabel("Administrator Login");
+
+		usernameBox = new SFUI::InputBox();
+		newMenu->add(usernameBox);
+
+		// TODO: PasswordInputBox
+		// hides the input and shows dots instead
+		passwordBox = new SFUI::InputBox();
+		newMenu->add(passwordBox);
+
+		newMenu->addLabel("Forgot password?");
+
+		newMenu->addHorizontalBoxLayout();
+
+		newMenu->addButton("Login", Login::LOGIN);
+		newMenu->addButton("Back", Login::BACK_L);
+	}
 
 	return newMenu;
 }

@@ -29,6 +29,7 @@ private:
 
 	SFUI::InputBox* usernameBox;
 	SFUI::InputBox* passwordBox;
+	SFUI::InputBox* passwordConfirmBox;
 
 	enum MenuState
 	{

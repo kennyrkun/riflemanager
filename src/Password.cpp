@@ -20,7 +20,7 @@ namespace password
 
         SettingsParser parser("./resources/admin/hashedpasswords");
         parser.set(username, hash_hex_str);
-        parser.loadFromFile("./salts");
+        parser.loadFromFile("./resources/admin/salts");
         parser.set(username, ss.str());
 
         return hash_hex_str;
