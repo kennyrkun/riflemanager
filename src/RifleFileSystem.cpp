@@ -39,7 +39,7 @@ bool rfs::removeRifle(rifle::serial serial)
 	}
 }
 
-bool rfs::newRifle(rifle::serial serial, std::string type)
+bool rfs::newRifle(rifle::serial serial, const std::string& type)
 {
 	if (doesRifleExist(serial))
 	{

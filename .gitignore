@@ -271,3 +271,4 @@ src/.vscode/c_cpp_properties.json
 /src/resources/rifleinventory
 /src/resources/admin
 /Builds
+/build-dir

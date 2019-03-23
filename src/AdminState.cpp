@@ -19,8 +19,8 @@ enum Admin
 	BACK_A,
 	DEBUG,
 	SETTINGS,
-	SIGN_OUT_ALL,
-	SIGN_IN_ALL
+	CHECKOUT_ALL_RIFLES,
+	RETURN_ALL_RIFLES
 };
 
 void AdminState::Init(AppEngine* app)
@@ -89,11 +89,11 @@ void AdminState::HandleEvents()
 			case Admin::BACK_A:
 				app->PopState();
 				break;
-			case Admin::SIGN_OUT_ALL:
+			case Admin::CHECKOUT_ALL_RIFLES:
 				app->rm.checkoutAllRifles();
 				break;
-			case Admin::SIGN_IN_ALL:
-				app->rm.checkoutAllRifles();
+			case Admin::RETURN_ALL_RIFLES:
+				app->rm.returnAllRifles();
 				break;
 			default:
 				break;
@@ -186,8 +186,8 @@ SFUI::Menu* AdminState::buildMainMenu()
 
 	newMenu->addHorizontalBoxLayout();
 
-	newMenu->addButton("Checkout all Rifles", Admin::SIGN_OUT_ALL);
-	newMenu->addButton("Return all Rifles", Admin::SIGN_IN_ALL);
+	newMenu->addButton("Checkout all Rifles", Admin::CHECKOUT_ALL_RIFLES);
+	newMenu->addButton("Return all Rifles", Admin::RETURN_ALL_RIFLES);
 
 	newMenu->addHorizontalBoxLayout();
 
