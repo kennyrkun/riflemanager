@@ -8,7 +8,7 @@
 #include <string>
 #include <thread>
 
-// APP ENGINE REVISION: 8
+// APP ENGINE REVISION: 9
 
 class AppState;
 
@@ -65,6 +65,9 @@ public:
 	AppSettings settings;
 
 	RifleManager rm;
+
+	// TODO: show a nice big warning when an admin is logged in
+	bool adminLoggedIn = false;
 
 private:
 	/*

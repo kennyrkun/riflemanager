@@ -23,11 +23,13 @@ enum Login
 
 enum Admin
 {
-	BACK_A,
 	DEBUG,
 	SETTINGS,
 	CHECKOUT_ALL_RIFLES,
-	RETURN_ALL_RIFLES
+	RETURN_ALL_RIFLES,
+	LOGOUT,
+
+	BACK_A
 };
 
 void AdminState::Init(AppEngine* app)
@@ -36,7 +38,10 @@ void AdminState::Init(AppEngine* app)
 
 	this->app = app;
 
-	menu = buildAdminLogin();
+	if (!app->adminLoggedIn)
+		menu = buildAdminLogin();
+	else
+		menu = buildMainMenu();
 
 	logger::INFO("AdminState Ready.");
 }
@@ -102,6 +107,11 @@ void AdminState::HandleEvents()
 			case Admin::RETURN_ALL_RIFLES:
 				app->rm.returnAllRifles();
 				break;
+			case Admin::LOGOUT:
+				app->adminLoggedIn = false;
+				delete menu;
+				menu = buildAdminLogin();
+				break;
 			default:
 				break;
 			}
@@ -117,6 +127,8 @@ void AdminState::HandleEvents()
 
 				if (password::validatePassword(username, password))
 				{
+					app->adminLoggedIn = true;
+
 					delete menu;
 					menu = buildMainMenu();
 				}
@@ -266,7 +278,9 @@ SFUI::Menu* AdminState::buildMainMenu()
 #ifndef PLATFORM_TOUCH
 	newMenu->addHorizontalBoxLayout();
 
-	newMenu->addButton("Back", Admin::BACK_A);
+	SFUI::HorizontalBoxLayout* hbox = newMenu->addHorizontalBoxLayout();
+	hbox->addButton("Back", Admin::BACK_A);
+	hbox->addButton("Logout", Admin::LOGOUT);
 #endif
 
 	return newMenu;
