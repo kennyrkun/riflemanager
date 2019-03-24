@@ -85,6 +85,8 @@ void RifleListState::HandleEvents()
 					logger::INFO("want to return rifle " + std::to_string(id));
 
 					app->rm.returnRifle(id);
+
+					delete menu;
 					menu = buildRifleMenu();
 				}
 			}

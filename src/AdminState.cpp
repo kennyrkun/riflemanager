@@ -2,6 +2,7 @@
 #include "DebugState.hpp"
 #include "SettingsState.hpp"
 #include "NewRifleState.hpp"
+#include "RifleInformationState.hpp"
 
 #include "Logger.hpp"
 #include "Password.hpp"
@@ -29,6 +30,7 @@ enum Admin
 	CHECKOUT_ALL_RIFLES,
 	RETURN_ALL_RIFLES,
 	ADD_NEW_RIFLE,
+	EDIT_RIFLE,
 	LOGOUT,
 
 	BACK_A
@@ -40,10 +42,10 @@ void AdminState::Init(AppEngine* app)
 
 	this->app = app;
 
-	if (!app->adminLoggedIn)
-		menu = buildAdminLogin();
-	else
+	if (app->adminLoggedIn)
 		menu = buildMainMenu();
+	else
+		menu = buildAdminLogin();
 
 	logger::INFO("AdminState Ready.");
 }
@@ -111,6 +113,9 @@ void AdminState::HandleEvents()
 				break;
 			case Admin::ADD_NEW_RIFLE:
 				app->PushState(new NewRifleState);
+				break;
+			case Admin::EDIT_RIFLE:
+				app->PushState(new RifleInformationState);
 				break;
 			case Admin::LOGOUT:
 				app->adminLoggedIn = false;
@@ -247,6 +252,7 @@ SFUI::Menu* AdminState::buildAdminLogin()
 		passwordBox = new SFUI::InputBox();
 		newMenu->add(passwordBox);
 
+		// TODO: make this usable
 		newMenu->addLabel("Forgot password?");
 
 		newMenu->addHorizontalBoxLayout();
@@ -265,7 +271,7 @@ SFUI::Menu* AdminState::buildMainMenu()
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(8, 10));
 
-	newMenu->addLabel("AdminState");
+	newMenu->addLabel("Administration");
 
 	newMenu->addButton("Settings", Admin::SETTINGS);
 	newMenu->addButton("Debug", Admin::DEBUG);
@@ -274,11 +280,8 @@ SFUI::Menu* AdminState::buildMainMenu()
 
 	newMenu->addButton("Checkout all Rifles", Admin::CHECKOUT_ALL_RIFLES);
 	newMenu->addButton("Return all Rifles", Admin::RETURN_ALL_RIFLES);
-
-	newMenu->addHorizontalBoxLayout();
-
 	newMenu->addButton("Add Rifle", Admin::ADD_NEW_RIFLE);
-	newMenu->addButton("Remove Rifle");
+	newMenu->addButton("Edit Rifle...", Admin::EDIT_RIFLE);
 
 #ifndef PLATFORM_TOUCH
 	newMenu->addHorizontalBoxLayout();

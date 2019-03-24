@@ -18,7 +18,7 @@ bool rfs::doesRifleExist(rifle::serial serial)
 
 bool rfs::removeRifle(rifle::serial serial)
 {
-	if (doesRifleExist(serial))
+	if (!doesRifleExist(serial))
 	{
 		logger::ERROR("cannot remove rifle: rifle " + std::to_string(serial) + " does not exist.");
 		return false;
@@ -28,8 +28,6 @@ bool rfs::removeRifle(rifle::serial serial)
 	{
 		fs::remove_all(RIFLE_PATH + std::to_string(serial));
 		logger::INFO("removed rifle " + std::to_string(serial));
-
-		return true;
 	}
 	catch (std::exception& e)
 	{
@@ -38,6 +36,8 @@ bool rfs::removeRifle(rifle::serial serial)
 
 		return false;
 	}
+
+	return true;
 }
 
 bool rfs::newRifle(rifle::serial serial, const std::string& type)

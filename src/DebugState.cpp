@@ -25,6 +25,9 @@ void DebugState::Init(AppEngine* app)
 void DebugState::Cleanup()
 {
 	logger::INFO("Cleaing up DebugState.");
+
+	delete menu;
+
 	logger::INFO("DebugState cleaned up.");
 }
 
