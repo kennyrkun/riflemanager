@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
 
 	AppEngine app;
 	AppSettings settings;
-	settings.commandline = { argc, argv };
+	settings.launchOptions = { argc, argv };
 
 	app.Initialise("Rifle Manager " + std::to_string(settings.version), settings);
 

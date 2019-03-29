@@ -8,7 +8,7 @@
 #include <string>
 #include <thread>
 
-// APP ENGINE REVISION: 9
+// APP ENGINE REVISION: 10
 
 class AppState;
 
@@ -28,11 +28,11 @@ struct AppSettings
 		int	height = 300;
 	} window;
 
-	struct CommandLineArguments
+	struct LaunchArguments
 	{
 		int argc;
 		char** argv;
-	} commandline;
+	} launchOptions;
 };
 
 class AppEngine
