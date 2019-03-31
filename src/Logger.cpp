@@ -59,7 +59,7 @@ const std::string getTimestamp()
 
 std::string write_dir = "./rfman_log/" + getDateStamp() + "." + getTimestamp() + ".log";
 
-void writeLog(const std::string output)
+void writeLog(const std::string& output)
 {
 	std::ofstream log((write_dir), std::ios::app);
 
@@ -153,7 +153,7 @@ namespace logger
 		writeLog(output);
 	}
 
-	void CUSTOM(std::string type, std::string output, bool silent)
+	void CUSTOM(const std::string& type, std::string output, bool silent)
 	{
 		output = getTimestamp() + " " + type + ": " + output;
 		
@@ -169,12 +169,12 @@ namespace logger
 		writeLog("\n");
 	}
 
-	void setOutputDir(const std::string dir)
+	void setOutputDir(const std::string& dir)
 	{
 		write_dir = dir;
 	}
 
-	void setOutputDir(const std::string dir, const std::string filename)
+	void setOutputDir(const std::string& dir, const std::string& filename)
 	{
 		write_dir = dir + "//" + filename + ".log";
 	}

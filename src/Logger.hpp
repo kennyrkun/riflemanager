@@ -21,12 +21,12 @@ namespace logger
 
 	void ERROR(std::string output, bool silent = false);
 
-	void CUSTOM(std::string type, std::string output, bool silent = false);
+	void CUSTOM(const std::string& type, std::string output, bool silent = false);
 
 	void LINE_BREAK();
 
-	void setOutputDir(const std::string dir);
-	void setOutputDir(const std::string dir, const std::string filename);
+	void setOutputDir(const std::string& dir);
+	void setOutputDir(const std::string& dir, const std::string& filename);
 }
 
 #endif // !LOGGER_HPP 

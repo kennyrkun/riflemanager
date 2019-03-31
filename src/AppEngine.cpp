@@ -8,7 +8,7 @@
 
 #include <ctime>
 
-void AppEngine::Initialise(const std::string& title, AppSettings settings_)
+void AppEngine::Initialise(const std::string& title, const AppSettings& settings_)
 {
 	logger::DEBUG("[APP ENGINE]: Initialising...");
 
@@ -39,7 +39,7 @@ void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 		parser.get("debug", debug);
 
 		SFUI::Theme::loadFont(font);
-		SFUI::Theme::loadTexture(texture, (debug == "TRUE" ? true : false));
+		SFUI::Theme::loadTexture(texture, (debug == "TRUE" ? true : false) || settings.SFUIDebug);
 		SFUI::Theme::textCharacterSize = std::stoi(textCharacterSize);
 		SFUI::Theme::click.textColor = SFUI::Theme::hexToRgb(clickTextColor);
 		SFUI::Theme::click.textColorHover = SFUI::Theme::hexToRgb(clickTextColorHover);
@@ -53,7 +53,7 @@ void AppEngine::Initialise(const std::string& title, AppSettings settings_)
 	else
 	{
 		SFUI::Theme::loadFont("resources/interface/tahoma.ttf");
-		SFUI::Theme::loadTexture("resources/interface/square.png");
+		SFUI::Theme::loadTexture("resources/interface/square.png", settings.SFUIDebug);
 		SFUI::Theme::textCharacterSize = 11;
 		SFUI::Theme::click.textColor = SFUI::Theme::hexToRgb("#191B18");
 		SFUI::Theme::click.textColorHover = SFUI::Theme::hexToRgb("#191B18");
