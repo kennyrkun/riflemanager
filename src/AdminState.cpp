@@ -13,25 +13,42 @@
 
 namespace fs = std::experimental::filesystem;
 
+// TODO: camelcase all enums
+
+enum ChangePassword
+{
+	CHANGE,
+
+	BACK_CP
+};
+
+enum FirstTimeAdmin
+{
+	CREATE,
+
+	BACK_FTA
+};
+
 enum Login
 {
 	FORGOT_PASSWORD,
 	LOGIN,
 
-	FIRST_TIME_ADMIN,
-
-	BACK_L,
+	BACK_L
 };
 
 enum Admin
 {
 	SETTINGS,
 //	DEBUG,
+
 	CHECKOUT_ALL_RIFLES,
 	RETURN_ALL_RIFLES,
 	ADD_NEW_RIFLE,
 	EDIT_RIFLE,
+
 	LOGOUT,
+	CHANGE_PASSWORD,
 
 	BACK_A
 };
@@ -45,7 +62,10 @@ void AdminState::Init(AppEngine* app)
 	if (app->adminLoggedIn)
 		menu = buildMainMenu();
 	else
-		menu = buildAdminLogin();
+		if (fs::exists("./resources/admin"))
+			menu = buildAdminLogin();
+		else
+			menu = buildFirstTimeAdmin();
 
 	logger::INFO("AdminState Ready.");
 }
@@ -92,7 +112,7 @@ void AdminState::HandleEvents()
 
 		int id = menu->onEvent(event);
 
-		if (menuState == MenuState::MAIN_MENU)
+		if (menuState == MenuState::MAIN)
 		{
 			switch (id)
 			{
@@ -104,7 +124,7 @@ void AdminState::HandleEvents()
 //				break;
 			case Admin::BACK_A:
 				app->PopState();
-				break;
+				return;
 			case Admin::CHECKOUT_ALL_RIFLES:
 				app->rm.checkoutAllRifles();
 				break;
@@ -119,15 +139,22 @@ void AdminState::HandleEvents()
 				break;
 			case Admin::LOGOUT:
 				app->adminLoggedIn = false;
+				currentAccountUsername = "";
 				delete menu;
 				menu = buildAdminLogin();
+				break;
+			case Admin::CHANGE_PASSWORD:
+				delete menu;
+				menu = buildChangePassword();
 				break;
 			default:
 				break;
 			}
 		}
-		else if (menuState == MenuState::LOGIN_MENU)
+		else if (menuState == MenuState::LOGIN)
 		{
+			// TODO: also check inputbox events and try to login on those (like when pressing enter)
+
 			switch (id)
 			{
 			case Login::LOGIN:
@@ -138,6 +165,7 @@ void AdminState::HandleEvents()
 				if (password::validatePassword(username, password))
 				{
 					app->adminLoggedIn = true;
+					currentAccountUsername = username;
 
 					delete menu;
 					menu = buildMainMenu();
@@ -147,7 +175,16 @@ void AdminState::HandleEvents()
 
 				break;
 			}
-			case Login::FIRST_TIME_ADMIN:
+			case Login::BACK_L:
+				app->PopState();
+				return;
+			}
+		}
+		else if (menuState == MenuState::FIRST_TIME_ADMIN)
+		{
+			switch (id)
+			{
+			case FirstTimeAdmin::CREATE:
 			{
 				// TODO: visually notify
 				if (passwordBox->getText() != passwordConfirmBox->getText())
@@ -177,10 +214,43 @@ void AdminState::HandleEvents()
 
 				break;
 			}
-			case Login::BACK_L:
+			case FirstTimeAdmin::BACK_FTA:
 				app->PopState();
-				break;
+				return;
 			default:
+				break;
+			}
+		}
+		else if (menuState == MenuState::CHANGE_PASSWORD)
+		{
+			switch (id)
+			{
+			case ChangePassword::CHANGE:
+			{
+				std::string username = currentAccountUsername;
+				std::string password = passwordBox->getText().toAnsiString();
+				std::string password2 = passwordConfirmBox->getText().toAnsiString();
+
+				if (password != password2)
+				{
+					logger::ERROR("Passwords do not match.");
+					break;
+				}
+				else
+				{
+					password::generateHashedPassword(username, password);
+
+					delete menu;
+					menu = buildMainMenu();
+
+					logger::INFO("Password has been changed.");
+				}
+
+				break;
+			}
+			case ChangePassword::BACK_CP:
+				delete menu;
+				menu = buildMainMenu();
 				break;
 			}
 		}
@@ -204,66 +274,14 @@ void AdminState::Draw()
 	app->window->display();
 }
 
-SFUI::Menu* AdminState::buildAdminLogin()
-{
-	menuState = MenuState::LOGIN_MENU;
-
-	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
-	newMenu->setPosition(sf::Vector2f(8, 10));
-
-	if (!fs::exists("./resources/admin"))
-	{
-		newMenu->addLabel("First Time Admin Setup");
-
-		newMenu->addLabel("Username");
-		usernameBox = new SFUI::InputBox();
-		newMenu->add(usernameBox);
-
-		// TODO: PasswordInputBox
-		// hides the input and shows dots instead
-		newMenu->addLabel("Password");
-		passwordBox = new SFUI::InputBox();
-		newMenu->add(passwordBox);
-		
-		// TODO: confirm password
-		newMenu->addLabel("Confirm Password");
-		passwordConfirmBox = new SFUI::InputBox();
-		newMenu->add(passwordConfirmBox);
-
-		newMenu->addButton("Create", Login::FIRST_TIME_ADMIN);
-	}
-	else
-	{
-		newMenu->addLabel("Administrator Login");
-
-		usernameBox = new SFUI::InputBox();
-		newMenu->add(usernameBox);
-
-		// TODO: PasswordInputBox
-		// hides the input and shows dots instead
-		passwordBox = new SFUI::InputBox();
-		newMenu->add(passwordBox);
-
-		// TODO: make this usable
-		newMenu->addLabel("Forgot password?");
-
-		newMenu->addHorizontalBoxLayout();
-
-		newMenu->addButton("Login", Login::LOGIN);
-		newMenu->addButton("Back", Login::BACK_L);
-	}
-
-	return newMenu;
-}
-
 SFUI::Menu* AdminState::buildMainMenu()
 {
-	menuState = MenuState::MAIN_MENU;
+	menuState = MenuState::MAIN;
 
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(8, 10));
 
-	newMenu->addLabel("Administration");
+	newMenu->addLabel("Administration (" + currentAccountUsername + ")");
 
 	newMenu->addButton("Settings", Admin::SETTINGS);
 //	I don't really think the Debug state needs to exist just yet.
@@ -281,8 +299,97 @@ SFUI::Menu* AdminState::buildMainMenu()
 
 	SFUI::HorizontalBoxLayout* hbox = newMenu->addHorizontalBoxLayout();
 	hbox->addButton("Back", Admin::BACK_A);
-	hbox->addButton("Logout", Admin::LOGOUT);
+
+	SFUI::VerticalBoxLayout* vbox = hbox->addVerticalBoxLayout();
+	vbox->addButton("Logout", Admin::LOGOUT);
+	vbox->addButton("Change Password...", Admin::CHANGE_PASSWORD);
 #endif
+
+	return newMenu;
+}
+
+SFUI::Menu* AdminState::buildAdminLogin()
+{
+	menuState = MenuState::LOGIN;
+
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(8, 10));
+
+	newMenu->addLabel("Administrator Login");
+
+	usernameBox = new SFUI::InputBox();
+	newMenu->add(usernameBox);
+
+	// TODO: PasswordInputBox
+	// hides the input and shows dots instead
+	passwordBox = new SFUI::InputBox();
+	newMenu->add(passwordBox);
+
+	// TODO: make this usable
+	newMenu->addLabel("Forgot password?");
+
+	newMenu->addHorizontalBoxLayout();
+
+	newMenu->addButton("Login", Login::LOGIN);
+	newMenu->addButton("Back", Login::BACK_L);
+
+	return newMenu;
+}
+
+SFUI::Menu* AdminState::buildFirstTimeAdmin()
+{
+	menuState = MenuState::FIRST_TIME_ADMIN;
+
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(8, 10));
+
+	newMenu->addLabel("First Time Admin Setup");
+
+	newMenu->addLabel("Username");
+	usernameBox = new SFUI::InputBox();
+	newMenu->add(usernameBox);
+
+	// TODO: PasswordInputBox
+	// hides the input and shows dots instead
+	newMenu->addLabel("Password");
+	passwordBox = new SFUI::InputBox();
+	newMenu->add(passwordBox);
+
+	// TODO: confirm password
+	newMenu->addLabel("Confirm Password");
+	passwordConfirmBox = new SFUI::InputBox();
+	newMenu->add(passwordConfirmBox);
+
+	newMenu->addButton("Create", FirstTimeAdmin::CREATE);
+	newMenu->addButton("Back", FirstTimeAdmin::BACK_FTA);
+
+	return newMenu;
+}
+
+SFUI::Menu* AdminState::buildChangePassword()
+{
+	menuState = MenuState::CHANGE_PASSWORD;
+
+	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
+	newMenu->setPosition(sf::Vector2f(8, 10));
+
+	newMenu->addLabel("Change Password");
+
+	newMenu->addLabel("Account: " + currentAccountUsername);
+
+	// TODO: PasswordInputBox
+	// hides the input and shows dots instead
+	newMenu->addLabel("New Password");
+	passwordBox = new SFUI::InputBox();
+	newMenu->add(passwordBox);
+
+	// TODO: confirm password
+	newMenu->addLabel("Confirm New Password");
+	passwordConfirmBox = new SFUI::InputBox();
+	newMenu->add(passwordConfirmBox);
+
+	newMenu->addButton("Change", ChangePassword::CHANGE);
+	newMenu->addButton("Back", ChangePassword::BACK_CP);
 
 	return newMenu;
 }

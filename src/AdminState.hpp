@@ -26,6 +26,8 @@ private:
 
 	SFUI::Menu* buildMainMenu();
 	SFUI::Menu* buildAdminLogin();
+	SFUI::Menu* buildFirstTimeAdmin();
+	SFUI::Menu* buildChangePassword();
 
 	SFUI::InputBox* usernameBox;
 	SFUI::InputBox* passwordBox;
@@ -33,9 +35,13 @@ private:
 
 	enum MenuState
 	{
-		MAIN_MENU,
-		LOGIN_MENU
+		MAIN,
+		LOGIN,
+		FIRST_TIME_ADMIN,
+		CHANGE_PASSWORD,
 	} menuState;
+
+	std::string currentAccountUsername;
 };
 
 #endif // !ADMIN_STATE_HPP
