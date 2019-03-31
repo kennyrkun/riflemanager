@@ -25,8 +25,8 @@ enum Login
 
 enum Admin
 {
-	DEBUG,
 	SETTINGS,
+//	DEBUG,
 	CHECKOUT_ALL_RIFLES,
 	RETURN_ALL_RIFLES,
 	ADD_NEW_RIFLE,
@@ -99,9 +99,9 @@ void AdminState::HandleEvents()
 			case Admin::SETTINGS:
 				app->PushState(new SettingsState);
 				break;
-			case Admin::DEBUG:
-				app->PushState(new DebugState);
-				break;
+//			case Admin::DEBUG:
+//				app->PushState(new DebugState);
+//				break;
 			case Admin::BACK_A:
 				app->PopState();
 				break;
@@ -159,19 +159,11 @@ void AdminState::HandleEvents()
 					fs::create_directory("./resources/admin");
 
 					{
-						std::ofstream createPassowrds("./resources/admin/hashedpasswords");
+						std::ofstream createPassowrds("./resources/admin/" + usernameBox->getText().toAnsiString() + ".dat");
 
 						if (!createPassowrds.is_open())
 						{
-							logger::ERROR("Failed to create hashedpasswords");
-							break;
-						}
-
-						std::ofstream createSalts("./resources/admin/salts");
-
-						if (!createSalts.is_open())
-						{
-							logger::ERROR("Failed to create salts");
+							logger::ERROR("Failed to create data file");
 							break;
 						}
 					}
@@ -274,7 +266,8 @@ SFUI::Menu* AdminState::buildMainMenu()
 	newMenu->addLabel("Administration");
 
 	newMenu->addButton("Settings", Admin::SETTINGS);
-	newMenu->addButton("Debug", Admin::DEBUG);
+//	I don't really think the Debug state needs to exist just yet.
+//	newMenu->addButton("Debug", Admin::DEBUG);
 
 	newMenu->addHorizontalBoxLayout();
 
