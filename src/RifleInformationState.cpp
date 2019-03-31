@@ -152,7 +152,7 @@ SFUI::Menu* RifleInformationState::buildRiflePicker()
 	SFUI::Menu* newMenu = new SFUI::Menu(*app->window);
 	newMenu->setPosition(sf::Vector2f(10, 10));
 
-	newMenu->addLabel("Rifle List:");
+	newMenu->addLabel("Pick a rifle to edit:.");
 
 	std::vector<rifle::serial> rifles = rfs::getRifleList();
 

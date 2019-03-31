@@ -127,11 +127,6 @@ void RifleManager::returnAllRifles()
 	std::vector<rifle::serial> rifles = rfs::getRifleList();
 
 	for (size_t i = 0; i < rifles.size(); i++)
-	{
-		if (fs::exists("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat"))
-		{
-			SettingsParser parser("./resources/rifleinventory/" + std::to_string(rifles[i]) + "/info.dat");
-			parser.set("status", "in");
-		}
-	}
+		if (rfs::doesRifleExist(rifles[i]))
+			returnRifle(rifles[i]);
 }

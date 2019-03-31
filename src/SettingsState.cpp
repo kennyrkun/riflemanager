@@ -52,17 +52,17 @@ void SettingsState::HandleEvents()
 			app->window->setView(sf::View(visibleArea));
 
 		}
-	}
 
-	int id = menu->onEvent(event);
+		int id = menu->onEvent(event);
 
-	switch (id)
-	{
-	case CALLBACK::BACK:
-		app->PopState();
-		break;
-	default:
-		break;
+		switch (id)
+		{
+		case CALLBACK::BACK:
+			app->PopState();
+			break;
+		default:
+			break;
+		}
 	}
 }
 
