@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 {
 	logger::INFO(argv[0]);
 
-	#ifdef defined(NDEBUG) || defined(_NDEBUG)
+	#if defined(NDEBUG) || defined(_NDEBUG)
 	logger::WARNING("Running in Debug mode. (NDEBUG is defined)");
 	#else // release probably
 	logger::INFO("Running in Release mode... probably. (NDEBUG is not defined.)");
