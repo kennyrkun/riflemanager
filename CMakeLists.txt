@@ -24,11 +24,7 @@ if(UNIX)
 	link_directories(${CMAKE_SOURCE_DIR}/SFUI/)
 	target_link_libraries(riflemanager ${CMAKE_SOURCE_DIR}/SFUI/SFUI.a)
 	target_link_libraries(riflemanager stdc++fs)
-endif(UNIX)
-
-set(${CMAKE_BUILD_TYPE} Debug)
-
-if(WIN32)
+elseif(WIN32)
 	target_include_directories(riflemanager PUBLIC ${CMAKE_SOURCE_DIR}/SFML/include)
 	target_include_directories(riflemanager PUBLIC ${CMAKE_SOURCE_DIR}/SFUI/include)
 	
